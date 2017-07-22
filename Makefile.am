@@ -42,7 +42,7 @@ src_phonesim_LDADD = $(QT_LIBS)
 
 AM_CXXFLAGS = -Wall $(QT_CFLAGS)
 
-INCLUDES = -I$(top_srcdir)/src -I$(top_builddir)/src
+AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 
 CLEANFILES = src/control.moc $(nodist_src_phonesim_SOURCES)
 
