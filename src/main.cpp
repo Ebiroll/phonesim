@@ -34,10 +34,11 @@ static void usage()
 
 int main(int argc, char **argv)
 {
-    QApplication app(argc, argv);
     QString filename = NULL;
+    QCoreApplication *app;
     int port = 12345;
     int index;
+    int r;
     bool with_gui = false;
 
     // Parse the command-line.
@@ -76,14 +77,24 @@ int main(int argc, char **argv)
         usage();
     }
 
+    if (with_gui) {
+        QApplication *gui = new QApplication(argc, argv);
+        gui->setQuitOnLastWindowClosed(false);
+
+        app = gui;
+    } else
+        app = new QCoreApplication(argc, argv);
+
     PhoneSimServer *pss = new PhoneSimServer(filename, port, 0);
 
-    if (with_gui) {
-        app.setQuitOnLastWindowClosed(false);
+    if (with_gui)
         pss->setHardwareManipulator(new ControlFactory);
-    } else
+    else
         pss->setHardwareManipulator(new HardwareManipulatorFactory);
 
-    return app.exec();
+    r = app->exec();
+    delete app;
+
+    return r;
 }
 
