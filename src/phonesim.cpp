@@ -23,6 +23,7 @@
 #include "simfilesystem.h"
 #include "simapplication.h"
 #include "callmanager.h"
+#include "simauth.h"
 #include <qatutils.h>
 
 #include <qstring.h>
@@ -628,6 +629,12 @@ SimRules::SimRules( int fd, QObject *p,  const QString& filename, HardwareManipu
             // Load a phonebook definition.
             loadPhoneBook( *n );
 
+        } else if ( n->tag == "simauth" ) {
+            printf("\n\nPARSING SIMAUTH\n\n");
+
+            _simAuth = new SimAuth( this, *n );
+            connect( _simAuth, SIGNAL(send(QString)),
+                    this, SLOT(respond(QString)) );
         }
         n = n->next;
     }
@@ -886,6 +893,10 @@ void SimRules::destruct()
         delete defState;
     defState = NULL;
 
+    if ( _simAuth )
+        delete _simAuth;
+    _simAuth = NULL;
+
     if ( _callManager )
         delete _callManager;
     _callManager = NULL;
@@ -1126,6 +1137,10 @@ void SimRules::command( const QString& cmd )
 
     // Process call-related commands with the call manager.
     if ( _callManager->command( cmd ) )
+        return;
+
+    // Proccess SIM auth commands
+    if ( _simAuth &&  _simAuth->command( cmd ) )
         return;
 
     // Process SIM toolkit related commands with the current SIM application.

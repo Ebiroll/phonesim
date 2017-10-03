@@ -53,6 +53,7 @@ class SimRules;
 class SimFileSystem;
 class CallManager;
 class SimApplication;
+class SimAuth;
 
 
 class SimXmlNode
@@ -358,6 +359,7 @@ private:
     QMap< QString, SimPhoneBook * > phoneBooks;
 
     CallManager *_callManager;
+    SimAuth *_simAuth;
 
     bool simCsimOk( const QByteArray& payload );
 };

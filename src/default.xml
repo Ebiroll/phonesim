@@ -314,6 +314,12 @@
     <!-- SIM insertion state -->
     <set name="SIMSTATE" value="1" />
 
+<!-- SIM Auth -->
+<simauth ki="90dca4eda45b53cf0f12d7c9c3bc6a89" opc="cb9cccc4b9258e6dca4760379fb82581">
+        <aid>61184F10A0000000871004FFFFFFFF890619000050044953494DFFFFFFFFFFFFFF</aid>
+        <aid>61184F10A0000000871002FFFFFFFF890619000050045553494DFFFFFFFFFFFFFF</aid>
+</simauth>
+
 <!-- Time -->
 <!-- Enable for testing
 <unsolicited delay="3000" once="true">*TTZ: 2, "11/25/2007, 12:12:12+40", 0</unsolicited>
