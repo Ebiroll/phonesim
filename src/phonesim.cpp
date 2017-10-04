@@ -630,8 +630,6 @@ SimRules::SimRules( int fd, QObject *p,  const QString& filename, HardwareManipu
             loadPhoneBook( *n );
 
         } else if ( n->tag == "simauth" ) {
-            printf("\n\nPARSING SIMAUTH\n\n");
-
             _simAuth = new SimAuth( this, *n );
             connect( _simAuth, SIGNAL(send(QString)),
                     this, SLOT(respond(QString)) );
