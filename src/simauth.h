@@ -70,6 +70,9 @@ private:
     // operator variant algorithm configuration field
     QString _opc;
 
+    // Sequence number stored on SIM
+    QString _sqn;
+
     // arbitrary session ID starting number
     int _session_start;
 
