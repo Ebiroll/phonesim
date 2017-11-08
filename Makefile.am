@@ -17,6 +17,7 @@ src_phonesim_SOURCES = src/main.cpp \
 			src/qcbsmessage.h src/qcbsmessage.cpp \
 			src/callmanager.h src/callmanager.cpp \
 			src/simauth.h src/simauth.cpp \
+			src/aidapplication.h src/aidapplication.cpp \
 			src/comp128.h src/comp128.c \
 			src/aes.h src/aes.c \
 			src/simfilesystem.h src/simfilesystem.cpp \
@@ -38,6 +39,7 @@ nodist_src_phonesim_SOURCES = src/ui_controlbase.h \
 				src/moc_hardwaremanipulator.cpp \
 				src/moc_callmanager.cpp \
 				src/moc_simauth.cpp \
+				src/moc_aidapplication.cpp \
 				src/moc_simfilesystem.cpp \
 				src/moc_simapplication.cpp \
 				src/moc_qwsppdu.cpp
