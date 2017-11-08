@@ -24,6 +24,11 @@
 
 class SimFileItem;
 
+enum file_system_type {
+    FILE_SYSTEM_TYPE_DEFAULT,
+    FILE_SYSTEM_TYPE_ISIM
+};
+
 enum file_type {
     FILE_TYPE_TRANSPARENT = 0,
     FILE_TYPE_LINEAR_FIXED = 1,
@@ -52,11 +57,13 @@ class SimFileSystem : public QObject
 {
     Q_OBJECT
 public:
-    SimFileSystem( SimRules *rules, SimXmlNode& e );
+    SimFileSystem( SimRules *rules, SimXmlNode& e, enum file_system_type type = FILE_SYSTEM_TYPE_DEFAULT );
     ~SimFileSystem();
 
     // Execute an AT+CRSM command against the filesystem.
     void crsm( const QString& args );
+
+    bool fileAccess( const QString& args, QString& resp );
 
     // Find an item with a specific id.
     SimFileItem *findItem( const QString& fileid ) const;
@@ -76,6 +83,8 @@ public:
 
     // Resolve a file identifier to its full path from the root directory.
     QString resolveFileId( const QString& fileid ) const;
+
+    QString resolveISimFileId( const QString& _fileid ) const;
 
 private:
     SimRules *rules;

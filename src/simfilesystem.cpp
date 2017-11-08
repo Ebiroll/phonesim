@@ -133,7 +133,20 @@ static SimFileInfo const knownFiles[] =
     {0,             0,          0,             0,         FILE_TYPE_TRANSPARENT}
 };
 
-SimFileSystem::SimFileSystem( SimRules *rules, SimXmlNode& e )
+static SimFileInfo const isimFiles[] =
+{
+    // TS 31.103
+    {"6F02",        0,     "EFimpi",        0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6F03",        0,     "EFdomain",      0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6FAD",        0,     "EFad",          0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6F06",        0,     "EFarr",         0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6F07",        0,     "EFist",         0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6F09",        0,     "EFpcscf",       0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {"6FD5",        0,     "EFgbabp",       0x14ff44,  FILE_TYPE_TRANSPARENT},
+    {0,             0,          0,             0,         FILE_TYPE_TRANSPARENT}
+};
+
+SimFileSystem::SimFileSystem( SimRules *rules, SimXmlNode& e, enum file_system_type fstype )
     : QObject( rules )
 {
     this->rules = rules;
@@ -141,7 +154,12 @@ SimFileSystem::SimFileSystem( SimRules *rules, SimXmlNode& e )
     currentItem = rootItem;
 
     // Create all of the standard directories.
-    const SimFileInfo *info = knownFiles;
+    const SimFileInfo *info;
+    if (fstype == FILE_SYSTEM_TYPE_ISIM) {
+        info = isimFiles;
+    } else {
+        info = knownFiles;
+    }
     SimFileItem *dirItem = 0;
     while ( info->fileid ) {
         QString fileid = info->fileid;
@@ -162,20 +180,33 @@ SimFileSystem::SimFileSystem( SimRules *rules, SimXmlNode& e )
             QString fileid = resolveFileId( name );
             int access = findItemAccess( name );
             enum file_type type = findItemFileType( name );
-            SimFileItem *parent = findItemParent( fileid );
-            if ( parent ) {
-                SimFileItem *item;
-                item = findItem( fileid.right(4) );
-                if ( !item )
-                    item = new SimFileItem( fileid.right(4), parent, access, type );
-                else
-                    qDebug() << "File" << name << "defined multiple times";
-                item->setContents( data );
-                QString size = child->getAttribute( "recordsize" );
-                if ( !size.isEmpty() )
-                    item->setRecordSize( size.toInt() );
+
+            if ( fstype == FILE_SYSTEM_TYPE_DEFAULT) {
+                SimFileItem *parent = findItemParent( fileid );
+                if ( parent ) {
+                    SimFileItem *item;
+                    item = findItem( fileid.right(4) );
+                    if ( !item )
+                        item = new SimFileItem( fileid.right(4), parent, access, type );
+                    else
+                        qDebug() << "File" << name << "defined multiple times";
+                    item->setContents( data );
+                    QString size = child->getAttribute( "recordsize" );
+                    if ( !size.isEmpty() )
+                        item->setRecordSize( size.toInt() );
+                } else {
+                    qDebug() << "Could not find parent for" << name;
+                }
             } else {
-                qDebug() << "Could not find parent for" << name;
+                /*
+                 * ISIM files wont have a parent dir set, so they are handled
+                 * differently.
+                 */
+                QString name = child->getAttribute( "name" );
+                QByteArray data = QAtUtils::fromHex( child->contents );
+                QString fileid = resolveISimFileId( name );
+                SimFileItem *item = new SimFileItem( fileid.right(4), rootItem, access, type);
+                item->setContents( data );
             }
         } else {
             qDebug() << "Unknown filesystem command <" << child->tag << ">";
@@ -184,7 +215,8 @@ SimFileSystem::SimFileSystem( SimRules *rules, SimXmlNode& e )
     }
 
     /* Select DFgsm initially */
-    currentItem = findItem("7F20");
+    if ( fstype == FILE_SYSTEM_TYPE_DEFAULT )
+        currentItem = findItem("7F20");
 }
 
 SimFileSystem::~SimFileSystem()
@@ -192,7 +224,7 @@ SimFileSystem::~SimFileSystem()
     delete rootItem;
 }
 
-void SimFileSystem::crsm( const QString& args )
+bool SimFileSystem::fileAccess( const QString& args, QString& resp )
 {
     // Extract the arguments to the command.
     uint posn = 0;
@@ -428,13 +460,26 @@ void SimFileSystem::crsm( const QString& args )
 
     // Send the response information.
     if ( sw1 != 0 ) {
-        QString resp;
-        resp = "+CRSM: " + QString::number(sw1) + "," + QString::number(sw2);
+        resp = QString::number(sw1) + "," + QString::number(sw2);
         if ( !response.isEmpty() )
             resp += "," + response;
-        rules->respond( resp );
     }
-    if ( ok )
+
+    return ok;
+}
+
+void SimFileSystem::crsm( const QString& args )
+{
+    bool ok;
+    QString crsm = "+CRSM: ";
+    QString resp;
+    ok = fileAccess( args, resp );
+
+    crsm += resp;
+
+    rules->respond( crsm );
+
+    if (ok)
         rules->respond( "OK" );
     else
         rules->respond( "ERROR" );
@@ -524,6 +569,19 @@ QString SimFileSystem::resolveFileId( const QString& _fileid ) const
             return newId;
         }
     }
+}
+
+QString SimFileSystem::resolveISimFileId( const QString& name ) const
+{
+    const SimFileInfo *info = (const SimFileInfo *)isimFiles;
+    while ( info->fileid ) {
+        if ( name == info->name ) {
+            QString fileid = info->fileid;
+            return fileid;
+        }
+        ++info;
+    }
+    return QString("");
 }
 
 int SimFileSystem::findItemAccess( const QString& _fileid ) const
