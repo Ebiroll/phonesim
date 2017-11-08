@@ -45,6 +45,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+
 class SimState;
 class SimItem;
 class SimChat;
@@ -54,6 +55,8 @@ class SimFileSystem;
 class CallManager;
 class SimApplication;
 class SimAuth;
+class AidApplication;
+class AidAppWrapper;
 
 
 class SimXmlNode
@@ -360,6 +363,8 @@ private:
 
     CallManager *_callManager;
     SimAuth *_simAuth;
+    QList<AidApplication *> _applications;
+    AidAppWrapper *_app_wrapper;
 
     bool simCsimOk( const QByteArray& payload );
 };

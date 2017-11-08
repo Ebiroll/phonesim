@@ -316,8 +316,6 @@
 
 <!-- SIM Auth -->
 <simauth ki="90dca4eda45b53cf0f12d7c9c3bc6a89" opc="cb9cccc4b9258e6dca4760379fb82581" sqn="000000000021">
-        <aid>61184F10A0000000871004FFFFFFFF890619000050044953494DFFFFFFFFFFFFFF</aid>
-        <aid>61184F10A0000000871002FFFFFFFF890619000050045553494DFFFFFFFFFFFFFF</aid>
 </simauth>
 
 <!-- Time -->
@@ -3679,5 +3677,17 @@ OK</response>
 </file>
 
 </filesystem>
+
+<application type="ISim" id="61184F10A0000000871004FFFFFFFF890619000050044953494DFFFFFFFFFFFFFF">
+    <filesystem>
+        <file name="EFimpi">
+            <!-- 123456789@phonesim.org -->
+            80 15 31 32 33 34 35 36 37 38 40 70 68 6f 6e 65 73 69 6d 2e 6f 72 67
+        </file>
+    </filesystem>
+</application>
+
+<application type="USim" id="61184F10A0000000871002FFFFFFFF890619000050045553494DFFFFFFFFFFFFFF">
+</application>
 
 </simulator>

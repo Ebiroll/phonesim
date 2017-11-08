@@ -24,6 +24,7 @@
 #include "simapplication.h"
 #include "callmanager.h"
 #include "simauth.h"
+#include "aidapplication.h"
 #include <qatutils.h>
 
 #include <qstring.h>
@@ -630,12 +631,18 @@ SimRules::SimRules( int fd, QObject *p,  const QString& filename, HardwareManipu
             loadPhoneBook( *n );
 
         } else if ( n->tag == "simauth" ) {
+
             _simAuth = new SimAuth( this, *n );
-            connect( _simAuth, SIGNAL(send(QString)),
-                    this, SLOT(respond(QString)) );
+
+        } else if ( n->tag == "application" ) {
+            AidApplication *app = new AidApplication( this, *n );
+            _applications.append(app);
         }
         n = n->next;
     }
+
+    if ( _applications.length() > 0 )
+        _app_wrapper = new AidAppWrapper( this, _applications, _simAuth );
 
     // Clean up the XML reader objects.
     delete handler;
@@ -1137,8 +1144,7 @@ void SimRules::command( const QString& cmd )
     if ( _callManager->command( cmd ) )
         return;
 
-    // Proccess SIM auth commands
-    if ( _simAuth &&  _simAuth->command( cmd ) )
+    if (_app_wrapper && _app_wrapper->command( cmd ))
         return;
 
     // Process SIM toolkit related commands with the current SIM application.
