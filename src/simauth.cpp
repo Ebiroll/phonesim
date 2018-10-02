@@ -42,10 +42,13 @@ SimAuth::~SimAuth()
 void SimAuth::gsmAuthenticate( QString rand, QString &sres,
         QString &kc )
 {
-    uint8_t *ki = QSTRING_TO_BUF( _ki );
-    uint8_t *_rand = QSTRING_TO_BUF( rand );
-    uint8_t _sres[4];
-    uint8_t _kc[8];
+    uint8_t ki[16];
+    uint8_t _rand[16];
+    uint8_t _sres[4] = { 0 };
+    uint8_t _kc[8] = { 0 };
+
+    memcpy(ki, QSTRING_TO_BUF( _ki ), 16);
+    memcpy(_rand, QSTRING_TO_BUF( rand ), 16);
 
     comp128( ki, _rand, _sres, _kc );
 
