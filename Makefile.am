@@ -57,7 +57,7 @@ dist_pkgdata_DATA = src/default.xml
 EXTRA_DIST = src/controlbase.ui src/GSMSpecification.xml
 
 MAINTAINERCLEANFILES = Makefile.in \
-	aclocal.m4 configure depcomp missing install-sh
+	aclocal.m4 configure depcomp missing compile install-sh
 
 
 $(src_phonesim_OBJECTS): src/ui_controlbase.h
