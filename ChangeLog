@@ -1,3 +1,7 @@
+ver 1.21:
+	Add support for SimAuth class for GSM/UMTS authentication.
+	Add support for handling ISim file systems.
+
 ver 1.20:
 	Fix issue with encoding of EFpnn.
 	Fix issue with hex quoted strings in CRSM.
