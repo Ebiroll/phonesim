@@ -32,15 +32,15 @@ class HardwareManipulatorFactory;
 class PhoneSimServer : public QTcpServer
 {
 public:
-    PhoneSimServer(const QString &, quint16 port, QObject *parent = 0);
-    ~PhoneSimServer();
+    PhoneSimServer(const QString &, quint16 port, QObject *parent = nullptr);
+    ~PhoneSimServer() override;
 
     void setHardwareManipulator(HardwareManipulatorFactory *f);
 
     SimRules *rules() const { return currentRules; }
 
 protected:
-    void incomingConnection(qintptr s);
+    void incomingConnection(qintptr s) override;
 
 private:
     QString filename;
