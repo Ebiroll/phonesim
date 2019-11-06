@@ -516,7 +516,7 @@ static bool readXmlFile( SimXmlHandler *handler, const QString& filename )
     return !reader.hasError();
 }
 
-SimRules::SimRules( int fd, QObject *p,  const QString& filename, HardwareManipulatorFactory *hmf )
+SimRules::SimRules(qintptr fd, QObject *p,  const QString& filename, HardwareManipulatorFactory *hmf )
     : QTcpSocket(p)
 {
     setSocketDescriptor(fd);

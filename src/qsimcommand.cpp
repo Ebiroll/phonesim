@@ -3764,7 +3764,7 @@ void QSimCommand::addExtensionField( int tag, const QByteArray& value )
 QSimCommandPrivate *QSimCommand::dwrite()
 {
     // If we are the only user of the private object, return it as-is.
-    if ( d->ref == 1 )
+    if ( d->ref.load() == 1 )
         return d;
 
     // Create a new private object and copy the current contents into it.

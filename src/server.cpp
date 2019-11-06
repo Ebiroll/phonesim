@@ -44,7 +44,7 @@ void PhoneSimServer::setHardwareManipulator(HardwareManipulatorFactory *f)
         f->setRuleFile(filename);
 }
 
-void PhoneSimServer::incomingConnection(int s)
+void PhoneSimServer::incomingConnection(qintptr s)
 {
   SimRules *sr = new SimRules(s, this, filename, fact);
     sr->setPhoneNumber(QString::number(phonenumber));

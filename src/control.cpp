@@ -22,7 +22,7 @@
 #include <qslider.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <QtGui/qmessagebox.h>
+#include <qmessagebox.h>
 #include <qfiledialog.h>
 #include <Qt>
 #include <qbuffer.h>
@@ -31,7 +31,7 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QDir>
-#include <QtGui/QHeaderView>
+#include <QHeaderView>
 
 #define TWO_BYTE_MAX 65535
 #define FOUR_CHAR 4

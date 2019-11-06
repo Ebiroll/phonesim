@@ -40,7 +40,7 @@ public:
     SimRules *rules() const { return currentRules; }
 
 protected:
-    void incomingConnection(int s);
+    void incomingConnection(qintptr s);
 
 private:
     QString filename;

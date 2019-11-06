@@ -22,18 +22,27 @@ AC_ARG_ENABLE(optimization, AC_HELP_STRING([--disable-optimization],
 	fi
 ])
 
-PKG_CHECK_MODULES(QT, QtCore QtGui QtXml QtNetwork QtScript QtDBus, dummy=yes,
+PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Script Qt5DBus Qt5Widgets, dummy=yes,
 						AC_MSG_ERROR(Qt is required))
+
+# Needed for Qt 5.7
+CXXFLAGS="$CXXFLAGS --std=gnu++11"
+
 AC_SUBST(QT_CFLAGS)
 AC_SUBST(QT_LIBS)
 
+AC_MSG_CHECKING(for Qt5 host_bins)
+PKG_CHECK_VAR(QMAKE_PATH_HOST_BINS, Qt5Core, host_bins)
+AC_SUBST(QMAKE_PATH_HOST_BINS)
+AC_MSG_RESULT($QMAKE_PATH_HOST_BINS)
+
 AC_MSG_CHECKING(for moc)
-MOC="`$PKG_CONFIG --variable=moc_location QtCore`"
+MOC="$QMAKE_PATH_HOST_BINS/moc"
 AC_SUBST(MOC)
 AC_MSG_RESULT($MOC)
 
 AC_MSG_CHECKING(for uic)
-UIC="`$PKG_CONFIG --variable=uic_location QtCore`"
+UIC="$QMAKE_PATH_HOST_BINS/uic"
 AC_SUBST(UIC)
 AC_MSG_RESULT($UIC)
 

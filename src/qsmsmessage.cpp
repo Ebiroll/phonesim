@@ -365,7 +365,7 @@ QSMSMessage::~QSMSMessage()
 QSMSMessagePrivate *QSMSMessage::dwrite()
 {
     // If we are the only user of the private object, return it as-is.
-    if ( d->ref == 1 )
+    if ( d->ref.load() == 1 )
         return d;
 
     // Create a new private object and copy the current contents into it.
@@ -2594,8 +2594,8 @@ QCBSMessage QCBSDeliverMessage::unpack(QTextCodec *codec)
     QString text = userData
         ( (QSMSDataCodingScheme)scheme, codec, headers, false, true );
     len = text.length();
-    while ( len > 0 && ( text[len - 1] == '\r' || text[len - 1] == '\n' ||
-                         text[len - 1] == '\0' ) ) {
+    while ( len > 0 && ( text.at(len - 1) == QChar ('\r') || text.at(len - 1) == QChar ('\n') ||
+                         text.at(len - 1) == QChar ('\0') ) ) {
         --len;
     }
     m.setText( text.left( len ) );
