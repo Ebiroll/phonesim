@@ -641,28 +641,28 @@ void ControlWidget::modemSilentReset()
 Script::Script(QObject *obj, Ui_ControlBase *ui) : QDBusAbstractAdaptor(obj)
 {
     /* Export tabs to be accessed by script */
-    QScriptValue qsTab = engine.newQObject(ui->tab);
+    QJSValue qsTab = engine.newQObject(ui->tab);
     engine.globalObject().setProperty("tabRegistration", qsTab);
 
-    QScriptValue qsTab2 = engine.newQObject(ui->tab_2);
+    QJSValue qsTab2 = engine.newQObject(ui->tab_2);
     engine.globalObject().setProperty("tabCBM", qsTab2);
 
-    QScriptValue qsTab3 = engine.newQObject(ui->tab_3);
+    QJSValue qsTab3 = engine.newQObject(ui->tab_3);
     engine.globalObject().setProperty("tabSMS", qsTab3);
 
-    QScriptValue qsTab4 = engine.newQObject(ui->tab_4);
+    QJSValue qsTab4 = engine.newQObject(ui->tab_4);
     engine.globalObject().setProperty("tabVoiceMail", qsTab4);
 
-    QScriptValue qsTab5 = engine.newQObject(ui->tab_5);
+    QJSValue qsTab5 = engine.newQObject(ui->tab_5);
     engine.globalObject().setProperty("tabUSSD", qsTab5);
 
-    QScriptValue qsTab6 = engine.newQObject(ui->tab_6);
+    QJSValue qsTab6 = engine.newQObject(ui->tab_6);
     engine.globalObject().setProperty("tabSIM", qsTab6);
 
-    QScriptValue qsTab8 = engine.newQObject(ui->tab_8);
+    QJSValue qsTab8 = engine.newQObject(ui->tab_8);
     engine.globalObject().setProperty("tabPosition", qsTab8);
 
-    QScriptValue qsTab9 = engine.newQObject(ui->tab_9);
+    QJSValue qsTab9 = engine.newQObject(ui->tab_9);
     engine.globalObject().setProperty("tabCall", qsTab9);
 }
 
@@ -705,7 +705,7 @@ QString Script::Run(const QString &name, const QDBusMessage &msg)
     QString contents = stream.readAll();
     scriptFile.close();
 
-    QScriptValue qsScript = engine.evaluate(contents);
+    QJSValue qsScript = engine.evaluate(contents);
     if (qsScript.isError()) {
         QString info = fileName + ", line " + qsScript.property("lineNumber").toString() + ", " + qsScript.toString();
         QDBusMessage reply = msg.createErrorReply(SERVICE ".Error.ScriptExecError", info);

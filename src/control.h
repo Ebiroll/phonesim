@@ -22,7 +22,7 @@
 
 #include <hardwaremanipulator.h>
 #include <QtDBus/QtDBus>
-#include <QtScript>
+#include <QJSEngine>
 #include "ui_controlbase.h"
 #include "attranslator.h"
 #include "callmanager.h"
@@ -58,7 +58,7 @@ public slots:
 
 private:
     QString dirPath;
-    QScriptEngine engine;
+    QJSEngine engine;
 };
 
 class ControlWidget : public QWidget

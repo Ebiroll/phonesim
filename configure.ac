@@ -22,7 +22,7 @@ AC_ARG_ENABLE(optimization, AC_HELP_STRING([--disable-optimization],
 	fi
 ])
 
-PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Script Qt5DBus Qt5Widgets, dummy=yes,
+PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Qml Qt5DBus Qt5Widgets, dummy=yes,
 						AC_MSG_ERROR(Qt is required))
 
 # Needed for qOverload
