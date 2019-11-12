@@ -30,8 +30,8 @@ public:
     {
         expectedType = QSimCommand::NoCommand;
         modemHandled = false;
-        target = 0;
-        slot = 0;
+        target = nullptr;
+        slot = nullptr;
         inResponse = false;
     }
 
@@ -136,8 +136,8 @@ void SimApplication::abort()
     d->expectedType = QSimCommand::NoCommand;
     d->modemHandled = false;
     d->currentCommand = QByteArray();
-    d->target = 0;
-    d->slot = 0;
+    d->target = nullptr;
+    d->slot = nullptr;
     endSession();
 }
 
@@ -196,8 +196,8 @@ bool SimApplication::envelope( const QSimEnvelope& env )
 
     d->expectedType = QSimCommand::NoCommand;
     d->currentCommand = QByteArray();
-    d->target = 0;
-    d->slot = 0;
+    d->target = nullptr;
+    d->slot = nullptr;
     if ( env.requestHelp() )
         mainMenuHelpRequest( env.menuItem() );
     else
@@ -235,8 +235,8 @@ bool SimApplication::response( const QSimTerminalResponse& resp )
         d->modemHandled = false;
         d->currentCommand = QByteArray();
     }
-    d->target = 0;
-    d->slot = 0;
+    d->target = nullptr;
+    d->slot = nullptr;
 
     // Process the response.
     d->inResponse = true;
@@ -247,7 +247,7 @@ bool SimApplication::response( const QSimTerminalResponse& resp )
         int index = target->metaObject()->indexOfMethod( name.constData() );
         if ( index != -1 ) {
             void *args[2];
-            args[0] = 0;
+            args[0] = nullptr;
             args[1] = (void *)&resp;
             target->qt_metacall
                 ( QMetaObject::InvokeMetaMethod, index, args );
@@ -500,7 +500,7 @@ void DemoSimApplication::mainMenu()
 
     cmd.setMenuItems( items );
 
-    command( cmd, 0, 0 );
+    command( cmd, nullptr, nullptr );
 }
 
 void DemoSimApplication::sendDisplayText()
@@ -2186,7 +2186,7 @@ void DemoSimApplication::timersMenuResp( const QSimTerminalResponse& resp )
         cmd.setTimerId( 2 );
         cmd.setDuration( 10000 );
         cmd.setDestinationDevice( QSimCommand::ME );
-        command( cmd, NULL, NULL );
+        command( cmd, nullptr, nullptr );
         break;
 
     case Timers_Query:

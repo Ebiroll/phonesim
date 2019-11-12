@@ -66,7 +66,7 @@ class AidAppWrapper : public QObject
 {
     Q_OBJECT
 public:
-    AidAppWrapper( SimRules *r, QList<AidApplication *> apps, SimAuth *auth = NULL );
+    AidAppWrapper( SimRules *r, QList<AidApplication *> apps, SimAuth *auth = nullptr );
     ~AidAppWrapper();
 
     bool command( const QString& cmd );

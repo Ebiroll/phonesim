@@ -135,7 +135,7 @@ QCBSMessage::QCBSMessage()
 */
 QCBSMessage::QCBSMessage(const QCBSMessage &msg)
 {
-    d = 0;
+    d = nullptr;
     *this = msg;
 }
 

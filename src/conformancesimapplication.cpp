@@ -147,7 +147,7 @@ void ConformanceSimApplication::mainMenu()
 
     cmd.setMenuItems( items );
 
-    command( cmd, 0, 0 );
+    command( cmd, nullptr, nullptr );
 }
 
 void ConformanceSimApplication::mainMenuSelection( int id )

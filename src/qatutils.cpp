@@ -923,18 +923,18 @@ QByteArray QCodePage850Codec::convertFromUnicode(const QChar *in, int length, Co
 QTextCodec *QAtUtils::codec( const QString& gsmCharset )
 {
     QString cs = gsmCharset.toLower();
-    QTextCodec *codec = 0;
+    QTextCodec *codec = nullptr;
 
     // Convert the name into an appropriate codec.
     if ( cs == "gsm" ) {
         // 7-bit GSM character set.
-        static QTextCodec *gsm = 0;
+        static QTextCodec *gsm = nullptr;
         if ( !gsm )
             gsm = new QGsmCodec();
         codec = gsm;
     } else if ( cs == "gsm-noloss" ) {
         // 7-bit GSM character set, with no loss of quality.
-        static QTextCodec *gsmNoLoss = 0;
+        static QTextCodec *gsmNoLoss = nullptr;
         if ( !gsmNoLoss )
             gsmNoLoss = new QGsmCodec( true );
         codec = gsmNoLoss;
@@ -943,13 +943,13 @@ QTextCodec *QAtUtils::codec( const QString& gsmCharset )
         // be anything according to the specification, but we need to pick
         // something.  We assume that it is 7-bit GSM, as that is the most
         // likely value.
-        static QTextCodec *hex = 0;
+        static QTextCodec *hex = nullptr;
         if ( !hex )
             hex = new QGsmHexCodec();
         codec = hex;
     } else if ( cs == "ucs2" ) {
         // Hex-encoded UCS2 character set.
-        static QTextCodec *ucs2 = 0;
+        static QTextCodec *ucs2 = nullptr;
         if ( !ucs2 )
             ucs2 = new QUcs2HexCodec();
         codec = ucs2;
@@ -964,7 +964,7 @@ QTextCodec *QAtUtils::codec( const QString& gsmCharset )
         // to handle embedded UCS-2 character strings.  A hex UCS-2 string
         // will start with "80" and end with "FFFF".  If the string does
         // not have this format, it is interpreted as code page 437.
-        static QTextCodec *cp437 = 0;
+        static QTextCodec *cp437 = nullptr;
         if ( !cp437 )
             cp437 = new QCodePage437Codec();
         codec = cp437;

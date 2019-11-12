@@ -149,7 +149,7 @@ class Control: public HardwareManipulator
 Q_OBJECT
 
 public:
-    Control(const QString& ruleFile, SimRules *sr, QObject *parent=0);
+    Control(const QString& ruleFile, SimRules *sr, QObject *parent=nullptr);
     virtual ~Control();
 
 public slots:

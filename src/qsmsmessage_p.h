@@ -169,7 +169,7 @@ class QSMSDeliverMessage: public QPDUMessage
 public:
     explicit QSMSDeliverMessage(const QByteArray &pdu);
 
-    QSMSMessage unpack(QTextCodec *codec=0);
+    QSMSMessage unpack(QTextCodec *codec=nullptr);
 };
 
 class QCBSDeliverMessage: public QPDUMessage
@@ -178,7 +178,7 @@ public:
     QCBSDeliverMessage();
     explicit QCBSDeliverMessage(const QByteArray &pdu);
 
-    QCBSMessage unpack(QTextCodec *codec=0);
+    QCBSMessage unpack(QTextCodec *codec=nullptr);
     void pack(const QCBSMessage &m, QSMSDataCodingScheme scheme);
 };
 

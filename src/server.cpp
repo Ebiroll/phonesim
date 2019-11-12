@@ -25,7 +25,7 @@
 static int phonenumber = 555000;
 
 PhoneSimServer::PhoneSimServer(const QString &f, quint16 port, QObject *parent)
-    : QTcpServer(parent), fact(0), currentRules(0)
+    : QTcpServer(parent), fact(nullptr), currentRules(nullptr)
 {
     listen( QHostAddress::Any, port );
     filename = f;
@@ -33,7 +33,7 @@ PhoneSimServer::PhoneSimServer(const QString &f, quint16 port, QObject *parent)
 
 PhoneSimServer::~PhoneSimServer()
 {
-    setHardwareManipulator(0);
+    setHardwareManipulator(nullptr);
 }
 
 void PhoneSimServer::setHardwareManipulator(HardwareManipulatorFactory *f)

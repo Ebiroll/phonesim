@@ -328,7 +328,7 @@ QAtResultParser::Node::Node( uint number )
 {
     _kind = Number;
     _number = number;
-    _list = 0;
+    _list = nullptr;
 }
 
 QAtResultParser::Node::Node( uint first, uint last )
@@ -336,14 +336,14 @@ QAtResultParser::Node::Node( uint first, uint last )
     _kind = Range;
     _number = first;
     _last = last;
-    _list = 0;
+    _list = nullptr;
 }
 
 QAtResultParser::Node::Node( const QString& str )
 {
     _kind = String;
     _str = str;
-    _list = 0;
+    _list = nullptr;
 }
 
 QAtResultParser::Node::Node( QList<Node> *list )
@@ -361,7 +361,7 @@ QAtResultParser::Node::Node( const Node& other )
     _number = other._number;
     _last = other._last;
     _str = other._str;
-    _list = ( other._list ? new QList<Node>( *other._list ) : 0 );
+    _list = ( other._list ? new QList<Node>( *other._list ) : nullptr );
 }
 
 /*!

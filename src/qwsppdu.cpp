@@ -108,7 +108,7 @@ static const char * const contentTypeAssignments[] = {
     "application/vnd.oma.drm.content",
     "application/vnd.oma.drm.rights+xml",
     "application/vnd.oma.drm.rights+wbxml",
-    0
+    nullptr
 };
 #define numContentTypes (int)((sizeof(contentTypeAssignments) / \
                                sizeof(char *)) - 1)
@@ -1731,7 +1731,7 @@ const QWspField *QWspPart::header(const QString &name) const
             return &(*it);
     }
 
-    return 0;
+    return nullptr;
 }
 
 /*!

@@ -34,7 +34,7 @@ static void usage()
 
 int main(int argc, char **argv)
 {
-    QString filename = NULL;
+    QString filename = nullptr;
     QCoreApplication *app;
     int port = 12345;
     int index;
@@ -72,7 +72,7 @@ int main(int argc, char **argv)
 
     }
 
-    if (filename == NULL) {
+    if (filename == nullptr) {
         qWarning() << "ERROR: filename must be the last argument";
         usage();
     }
@@ -85,7 +85,7 @@ int main(int argc, char **argv)
     } else
         app = new QCoreApplication(argc, argv);
 
-    PhoneSimServer *pss = new PhoneSimServer(filename, port, 0);
+    PhoneSimServer *pss = new PhoneSimServer(filename, port, nullptr);
 
     if (with_gui)
         pss->setHardwareManipulator(new ControlFactory);

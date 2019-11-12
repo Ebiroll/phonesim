@@ -32,7 +32,7 @@ class SimApplication : public QObject
 {
     Q_OBJECT
 public:
-    SimApplication( SimRules *rules, QObject *parent = 0 );
+    SimApplication( SimRules *rules, QObject *parent = nullptr );
     ~SimApplication();
 
     virtual bool envelope( const QSimEnvelope& env );
@@ -67,7 +67,7 @@ class DemoSimApplication : public SimApplication
 {
     Q_OBJECT
 public:
-    DemoSimApplication( SimRules *rules, QObject *parent = 0 );
+    DemoSimApplication( SimRules *rules, QObject *parent = nullptr );
     ~DemoSimApplication();
 
     const QString getName();
@@ -148,7 +148,7 @@ class ConformanceSimApplication : public SimApplication
 {
     Q_OBJECT
 public:
-    ConformanceSimApplication( SimRules *rules, QObject *parent = 0 );
+    ConformanceSimApplication( SimRules *rules, QObject *parent = nullptr );
     ~ConformanceSimApplication();
 
     const QString getName();

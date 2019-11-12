@@ -45,7 +45,7 @@ public:
         result = "OK";
         resultCode = QAtResult::OK;
         verbose = true;
-        userData = 0;
+        userData = nullptr;
     }
     ~QAtResultPrivate()
     {

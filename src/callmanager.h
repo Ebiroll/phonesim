@@ -51,7 +51,7 @@ class CallManager : public QObject
 {
     Q_OBJECT
 public:
-    CallManager( QObject *parent = 0 );
+    CallManager( QObject *parent = nullptr );
     ~CallManager();
 
     // Process an AT command.  Returns false if not a call-related command.

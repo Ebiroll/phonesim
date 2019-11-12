@@ -386,7 +386,7 @@ class QVariantTimer : public QTimer
 {
     Q_OBJECT
 public:
-    QVariantTimer( QObject *parent = 0 ) : QTimer(parent) { }
+    QVariantTimer( QObject *parent = nullptr ) : QTimer(parent) { }
     QVariant param;
 };
 

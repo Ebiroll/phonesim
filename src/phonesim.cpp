@@ -44,10 +44,10 @@
 
 SimXmlNode::SimXmlNode( const QString& _tag )
 {
-    parent = 0;
-    next = 0;
-    children = 0;
-    attributes = 0;
+    parent = nullptr;
+    next = nullptr;
+    children = nullptr;
+    attributes = nullptr;
     tag = _tag;
 }
 
@@ -72,7 +72,7 @@ SimXmlNode::~SimXmlNode()
 void SimXmlNode::addChild( SimXmlNode *child )
 {
     SimXmlNode *current = children;
-    SimXmlNode *prev = 0;
+    SimXmlNode *prev = nullptr;
     while ( current ) {
         prev = current;
         current = current->next;
@@ -82,7 +82,7 @@ void SimXmlNode::addChild( SimXmlNode *child )
     } else {
         children = child;
     }
-    child->next = 0;
+    child->next = nullptr;
     child->parent = this;
 }
 
@@ -90,7 +90,7 @@ void SimXmlNode::addChild( SimXmlNode *child )
 void SimXmlNode::addAttribute( SimXmlNode *child )
 {
     SimXmlNode *current = attributes;
-    SimXmlNode *prev = 0;
+    SimXmlNode *prev = nullptr;
     while ( current ) {
         prev = current;
         current = current->next;
@@ -100,7 +100,7 @@ void SimXmlNode::addAttribute( SimXmlNode *child )
     } else {
         attributes = child;
     }
-    child->next = 0;
+    child->next = nullptr;
     child->parent = this;
 }
 
@@ -177,7 +177,7 @@ SimState::SimState( SimRules *rules, SimXmlNode& e )
         _name = e.getAttribute( "name" );
     }
     SimXmlNode *n = e.children;
-    while ( n != 0 ) {
+    while ( n != nullptr ) {
         if ( n->tag == "chat" ) {
 
             // Load a chat response definition.
@@ -244,7 +244,7 @@ SimChat::SimChat( SimState *state, SimXmlNode& e )
     deleteSMS = false;
     readSMS = false;
 
-    while ( n != 0 ) {
+    while ( n != nullptr ) {
         if ( n->tag == "command" ) {
             _command = n->contents;
             int w=_command.indexOf(QChar('*'));
@@ -520,11 +520,11 @@ SimRules::SimRules(qintptr fd, QObject *p,  const QString& filename, HardwareMan
     : QTcpSocket(p)
 {
     setSocketDescriptor(fd);
-    machine = 0;
-    toolkitApp = 0;
+    machine = nullptr;
+    toolkitApp = nullptr;
 
     if (hmf)
-        machine = hmf->create(this, 0);
+        machine = hmf->create(this, nullptr);
 
     if (machine) {
         connect(machine, SIGNAL(unsolicitedCommand(QString)),
@@ -563,10 +563,10 @@ SimRules::SimRules(qintptr fd, QObject *p,  const QString& filename, HardwareMan
     connect(this,SIGNAL(disconnected()),
         this,SLOT(destruct()));
     // Initialize the local state.
-    currentState = 0;
-    defState = 0;
+    currentState = nullptr;
+    defState = nullptr;
     usedCallIds = 0;
-    fileSystem = 0;
+    fileSystem = nullptr;
     useGsm0710 = false;
     currentChannel = 1;
     incomingUsed = 0;
@@ -599,7 +599,7 @@ SimRules::SimRules(qintptr fd, QObject *p,  const QString& filename, HardwareMan
     // Load the other states, and the start state's name (if specified).
     SimXmlNode *n = handler->documentElement()->children;
     QString start = QString();
-    while ( n != 0 ) {
+    while ( n != nullptr ) {
         if ( n->tag == "state" ) {
 
             // Load a new state definition.
@@ -886,29 +886,29 @@ void SimRules::destruct()
         simApps.removeAt( 0 );
 
     delete conformanceApp;
-    conformanceApp = NULL;
+    conformanceApp = nullptr;
     delete defaultToolkitApp;
-    defaultToolkitApp = NULL;
-    toolkitApp = NULL;
+    defaultToolkitApp = nullptr;
+    toolkitApp = nullptr;
 
     if ( getMachine() )
         getMachine()->handleNewApp();
 
     if ( defState )
         delete defState;
-    defState = NULL;
+    defState = nullptr;
 
     if ( _simAuth )
         delete _simAuth;
-    _simAuth = NULL;
+    _simAuth = nullptr;
 
     if ( _callManager )
         delete _callManager;
-    _callManager = NULL;
+    _callManager = nullptr;
 
     if ( fileSystem )
         delete fileSystem;
-    fileSystem = NULL;
+    fileSystem = nullptr;
 
     if (machine) machine->deleteLater();
     deleteLater();
@@ -968,7 +968,7 @@ SimState *SimRules::state( const QString& name ) const
 
     }
     qWarning() << "Warning: no state called \"" << name << "\" has been defined";
-    return 0;
+    return nullptr;
 }
 
 bool SimRules::simCsimOk( const QByteArray& payload )
@@ -1319,7 +1319,7 @@ void SimRules::loadPhoneBook( SimXmlNode& node )
     }
     SimPhoneBook *pb = phoneBooks[name];
     SimXmlNode *n = node.children;
-    while ( n != 0 ) {
+    while ( n != nullptr ) {
         if ( n->tag == "entry" ) {
             // Load a phone book entry.
             int index = n->getAttribute( "index" ).toInt();
@@ -1553,7 +1553,7 @@ SimPhoneBook *SimRules::currentPB() const
     if ( phoneBooks.contains( currentPhoneBook ) )
         return phoneBooks[currentPhoneBook];
     else
-        return 0;
+        return nullptr;
 }
 
 int SimRules::newCall()

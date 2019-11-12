@@ -503,7 +503,7 @@ void ControlWidget::resetTranslator()
 {
     QString fileName = QFileDialog::getOpenFileName(this,
      tr("Open Specification File"), QDir::homePath(), tr("Specification files (*.xml)"));
-    if(fileName != 0)
+    if(fileName != nullptr)
         translator->resetSpecification(fileName);
 }
 

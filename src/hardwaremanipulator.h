@@ -34,7 +34,7 @@ class HardwareManipulator : public QObject
 Q_OBJECT
 
 public:
-    HardwareManipulator(SimRules *sr, QObject *parent=0);
+    HardwareManipulator(SimRules *sr, QObject *parent=nullptr);
     QSMSMessageList & getSMSList();
     bool getSimPresent();
     QStringList getSimAppsNameList();

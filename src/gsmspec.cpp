@@ -137,11 +137,11 @@ void GSMSpec::setupDictionary(const QString& filePath)
     GsmXmlNode *specNode = handler->documentElement()->children;
     QString command, profile, format, response, description;
 
-    while ( specNode != 0 ) {
+    while ( specNode != nullptr ) {
         if ( specNode->tag == "spec" ) {
 
             GsmXmlNode *specData = specNode->children;
-            while ( specData != 0 ) {
+            while ( specData != nullptr ) {
 
                 if( specData->tag == "command" ) {
                     command = specData->contents;
@@ -171,10 +171,10 @@ void GSMSpec::setupDictionary(const QString& filePath)
 
 GsmXmlNode::GsmXmlNode( const QString& _tag )
 {
-    parent = 0;
-    next = 0;
-    children = 0;
-    attributes = 0;
+    parent = nullptr;
+    next = nullptr;
+    children = nullptr;
+    attributes = nullptr;
     tag = _tag;
 }
 
@@ -200,7 +200,7 @@ GsmXmlNode::~GsmXmlNode()
 void GsmXmlNode::addChild( GsmXmlNode *child )
 {
     GsmXmlNode *current = children;
-    GsmXmlNode *prev = 0;
+    GsmXmlNode *prev = nullptr;
     while ( current ) {
         prev = current;
         current = current->next;
@@ -210,7 +210,7 @@ void GsmXmlNode::addChild( GsmXmlNode *child )
     } else {
         children = child;
     }
-    child->next = 0;
+    child->next = nullptr;
     child->parent = this;
 }
 
@@ -218,7 +218,7 @@ void GsmXmlNode::addChild( GsmXmlNode *child )
 void GsmXmlNode::addAttribute( GsmXmlNode *child )
 {
     GsmXmlNode *current = attributes;
-    GsmXmlNode *prev = 0;
+    GsmXmlNode *prev = nullptr;
     while ( current ) {
         prev = current;
         current = current->next;
@@ -228,7 +228,7 @@ void GsmXmlNode::addAttribute( GsmXmlNode *child )
     } else {
         attributes = child;
     }
-    child->next = 0;
+    child->next = nullptr;
     child->parent = this;
 }
 

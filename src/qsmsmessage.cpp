@@ -85,7 +85,7 @@ public:
         mReplyRequest = false;
         mStatusReportRequested = false;
         mMessageType = QSMSMessage::Normal;
-        mCodec = 0;
+        mCodec = nullptr;
         mForceGsm = false;
         mBestScheme = (QSMSDataCodingScheme)(-1);
         mDataCodingScheme = -1;
@@ -2030,7 +2030,7 @@ QString QPDUMessage::userData(QSMSDataCodingScheme scheme, QTextCodec *codec, QB
     uint ch;
 
     // Reset the header return.
-    headers = 0;
+    headers = nullptr;
 
     // Get the length of the user data payload.
     if ( implicitLength ) {
@@ -2437,7 +2437,7 @@ QSMSMessage QSMSDeliverMessage::unpack(QTextCodec *codec)
     }
 
     // Read the user data field.
-    QByteArray *headers = 0;
+    QByteArray *headers = nullptr;
     QString text;
     text = userData( (QSMSDataCodingScheme)scheme, codec,
                      headers, userDataHeader, false );
@@ -2590,7 +2590,7 @@ QCBSMessage QCBSDeliverMessage::unpack(QTextCodec *codec)
     mPosn += 6;
 
     // Read the user data field and strip CR's, LF's, and NUL's from the end.
-    QByteArray *headers = 0;
+    QByteArray *headers = nullptr;
     QString text = userData
         ( (QSMSDataCodingScheme)scheme, codec, headers, false, true );
     len = text.length();
