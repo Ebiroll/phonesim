@@ -1565,7 +1565,7 @@ bool QPDUMessage::bit(int b)
     if ( needOctets(1) )
         return (mBuffer[mPosn] & (Unit << b));
     else
-        return 0;
+        return false;
 }
 
 unsigned char QPDUMessage::bits(int offset, int len)
