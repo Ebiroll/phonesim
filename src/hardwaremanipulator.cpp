@@ -239,7 +239,7 @@ void HardwareManipulator::sendVMNotify( int type, int count, const QList<QVMMess
             mwiUdh.append( count );    // Number of Voice Messages
             mwiUdh.append( received.size() ); // Number of VM Notifications
 
-            foreach ( QVMMessage msg, received ) {
+            for ( const QVMMessage &msg : received ) {
                 mwiUdh.append( msg.id & 0xff );
                 mwiUdh.append( msg.id >> 8 ); // Endianness doesn't matter here
                 mwiUdh.append( qMin( msg.lengthSecs, 255 ) );
@@ -261,7 +261,7 @@ void HardwareManipulator::sendVMNotify( int type, int count, const QList<QVMMess
             mwiUdh.append( count ); // Number of Voice Messages
             mwiUdh.append( deleted.size() ); // Number of VM Notifications
 
-            foreach ( QVMMessage msg, deleted ) {
+            for ( const QVMMessage &msg : deleted ) {
                 mwiUdh.append( msg.id & 0xff );
                 mwiUdh.append( msg.id >> 8 ); // Endianness doesn't matter here
                 mwiUdh.append( qMin( msg.lengthSecs, 255 ) );

@@ -47,7 +47,7 @@ bool AidAppWrapper::command( const QString& cmd )
             return true;
         }
 
-        foreach ( AidApplication* app, applications )
+        for ( AidApplication* app : qAsConst(applications) )
         response += app->getAid();
 
         response.append( "\n\nOK" );
@@ -72,7 +72,7 @@ bool AidAppWrapper::command( const QString& cmd )
         aid = cmd.split('=')[1];
         aid = aid.replace("\"", "");
 
-        foreach ( AidApplication* app, applications ) {
+        for ( AidApplication* app : qAsConst(applications) ) {
             if ( app->getAid().contains( aid ) ) {
                 if ( sessions.size() >= MAX_LOGICAL_CHANNELS )
                     break;

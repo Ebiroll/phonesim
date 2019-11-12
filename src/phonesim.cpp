@@ -1379,9 +1379,9 @@ void SimRules::phoneBook( const QString& cmd )
     }
 
     if ( cmd.startsWith( "AT+CPBS=?" ) ) {
-        QStringList names = phoneBooks.keys();
+        const QStringList names = phoneBooks.keys();
         QString response = "+CPBS: (";
-        foreach ( QString name, names ) {
+        for ( const QString &name : names ) {
             if ( response.length() > 8 )
                 response += QChar(',');
             response += "\"" + name + "\"";

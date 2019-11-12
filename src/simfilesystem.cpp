@@ -514,9 +514,9 @@ SimFileItem *SimFileSystem::findItemRelative( const QString& fileid )
         item = currentItem->parentDir();
     } else {
         // Search the current item's immediate children.
-        QList<SimFileItem *> children = currentItem->children();
-        item = 0;
-        foreach( SimFileItem *temp, children ) {
+        const QList<SimFileItem *> children = currentItem->children();
+        item = nullptr;
+        for ( SimFileItem *temp : children ) {
             if ( temp->fileid() == fileid ) {
                 item = temp;
                 break;
@@ -635,7 +635,7 @@ SimFileItem *SimFileItem::findItem( const QString& fileid )
 {
     if ( fileid == _fileid )
         return this;
-    foreach ( SimFileItem *item, _children ) {
+    for ( SimFileItem *item : qAsConst(_children) ) {
         SimFileItem *temp = item->findItem( fileid );
         if ( temp )
             return temp;

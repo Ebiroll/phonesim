@@ -3119,7 +3119,7 @@ static void writeSubAddress( QByteArray& data, const QString& value )
     writeBerLength( data, value.length() + 2 );
     data += (char)0x80;     // NSAP address type
     data += (char)0x50;     // NSAP address is BCD-encoded IA5 characters
-    foreach ( QChar ch, value ) {
+    for ( const QChar &ch : value ) {
         int val = ch.unicode() - 32;
         if ( val > 127 )
             val = 0;
@@ -3368,7 +3368,7 @@ QByteArray QSimCommand::toPdu( QSimCommand::ToPduOptions options ) const
                 data += (char)0x8F;
                 data += (char)0x00;
             }
-            foreach ( QSimMenuItem item, menuItems() ) {
+            for ( QSimMenuItem &item : menuItems() ) {
                 QByteArray contents;
                 contents += (char)item.identifier();
                 writeEFADN( contents, item.label(), options, -1 );
@@ -3386,7 +3386,7 @@ QByteArray QSimCommand::toPdu( QSimCommand::ToPduOptions options ) const
             if ( hasNextActions ) {
                 data += (char)0x18;
                 data += (char)menuItems().size();
-                foreach ( QSimMenuItem item, menuItems() )
+                for ( const QSimMenuItem &item : menuItems() )
                     data += (char)item.nextAction();
             }
             if ( type() == SelectItem && defaultItem() != 0 ) {
@@ -3399,14 +3399,14 @@ QByteArray QSimCommand::toPdu( QSimCommand::ToPduOptions options ) const
                 data += (char)0x9F;
                 data += (char)(menuItems().size() + 1);
                 data += (char)(selfExplanatory ? 0x00 : 0x01);
-                foreach ( QSimMenuItem item, menuItems() )
+                for ( const QSimMenuItem &item : menuItems() )
                     data += (char)item.iconId();
             }
             writeTextAttribute( data, titleAttribute() );
             if ( attrLen != 0 ) {
                 data += (char)0xD1;
                 writeBerLength( data, attrLen );
-                foreach ( QSimMenuItem item, menuItems() ) {
+                for ( QSimMenuItem &item : menuItems() ) {
                     data += item.labelAttribute();
                 }
             }

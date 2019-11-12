@@ -195,7 +195,7 @@ bool CallManager::command( const QString& cmd )
     } else if ( cmd == "AT+CLCC" ) {
 
         // List all calls that are presently active.
-        foreach ( CallInfo info, callList ) {
+        for ( const CallInfo &info : qAsConst(callList) ) {
             int multiparty;
             if ( countForState(info.state) >= 2 )
                 multiparty = 1;
@@ -821,7 +821,7 @@ int CallManager::newId()
     bool seen;
     for ( id = 1; id <= 32; ++id ) {
         seen = false;
-        foreach ( CallInfo info, callList ) {
+        for ( const CallInfo &info : qAsConst(callList) ) {
             if ( info.id == id ) {
                 seen = true;
                 break;
@@ -879,7 +879,7 @@ int CallManager::indexForId( int id )
 
 bool CallManager::hasCall( CallState state )
 {
-    foreach ( CallInfo info, callList ) {
+    for ( const CallInfo &info : qAsConst(callList) ) {
         if ( info.state == state )
             return true;
     }

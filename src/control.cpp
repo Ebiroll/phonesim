@@ -147,7 +147,7 @@ void Control::callManagement( QList<CallInfo> *list )
 
     widget->clearCallView();
 
-    foreach( CallInfo i, *list ) {
+    for ( const CallInfo &i : qAsConst(*list) ) {
         QString param[5];
 
         if ( i.incoming && !enableCSSU )
@@ -181,15 +181,15 @@ void ControlWidget::setStateAlerting()
 
 void ControlWidget::setStateHangup()
 {
-    QList <QTableWidgetItem *> items = ui->twCallMgt->selectedItems();
+    const QList <QTableWidgetItem *> items = ui->twCallMgt->selectedItems();
 
-    foreach ( QTableWidgetItem *item, items )
+    for ( QTableWidgetItem *item : items )
     {
         int row = item->row();
         if ( row >= 0 )
         {
             QTableWidgetItem *itemCallId = ui->twCallMgt->item( row, 0 );
-            if ( itemCallId != 0 )
+            if ( itemCallId != nullptr )
             {
                 QString strid = itemCallId->text();
                 int id = strid.toInt();
@@ -360,9 +360,9 @@ void ControlWidget::setDefaultGNSSData()
 
 void ControlWidget::sendGNSSData()
 {
-    QStringList xml = ui->teGNSStext->toPlainText().split("\n");
+    const QStringList xml = ui->teGNSStext->toPlainText().split("\n");
 
-    foreach ( QString line, xml )
+    for ( const QString &line : xml )
     {
         if (!line.isEmpty()) {
             QString cposr =  "+CPOSR: " + line;
@@ -468,9 +468,8 @@ void Control::handleFromData( const QString& cmd )
 
 void ControlWidget::handleToData( const QString& cmd )
 {
-    QStringList dataList = cmd.split("\n");
-    QString dataItem;
-    foreach( dataItem, dataList ){
+    const QStringList dataList = cmd.split("\n");
+    for ( auto &dataItem : dataList ){
         if( dataItem != "" ){
             ui->atViewer->append( dataItem + " : " + translator->translateCommand(dataItem) );
         }
@@ -564,7 +563,7 @@ void ControlWidget::addVoicemail()
 
 void ControlWidget::delVoicemail()
 {
-    foreach ( QTableWidgetSelectionRange range,
+    for ( QTableWidgetSelectionRange &range :
             ui->twMessageList->selectedRanges() ) {
         for ( int i = range.topRow(); i <= range.bottomRow(); i ++ ) {
             VoicemailItem &item = mailbox[i];
