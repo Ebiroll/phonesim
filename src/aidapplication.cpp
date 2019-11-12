@@ -15,7 +15,7 @@ AidApplication::AidApplication( QObject *parent, SimXmlNode& n )
 
     while (child) {
         if ( child->tag == "filesystem" )
-            fs = new SimFileSystem( (SimRules *)parent, *child, FILE_SYSTEM_TYPE_ISIM );
+            fs = new SimFileSystem( dynamic_cast<SimRules *>(parent), *child, FILE_SYSTEM_TYPE_ISIM );
 
         child = child->next;
     }

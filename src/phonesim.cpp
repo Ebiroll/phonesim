@@ -1664,7 +1664,7 @@ void SimRules::callControlEventNotify( const QSimControlEvent& evt )
 
 void SimRules::delayTimeout()
 {
-    SimDelayTimer *timer = (SimDelayTimer *)sender();
+    SimDelayTimer *timer = dynamic_cast<SimDelayTimer *>(sender());
     int save = currentChannel;
     currentChannel = timer->channel;
     writeChatData(timer->response.toLatin1().data(), timer->response.length());
@@ -1675,7 +1675,7 @@ void SimRules::delayTimeout()
 
 void SimRules::delaySetVariable()
 {
-    QVariantTimer *timer = (QVariantTimer *)sender();
+    QVariantTimer *timer = dynamic_cast<QVariantTimer *>(sender());
     QPairKV kv = timer->param.value<QPairKV>();
 
     setVariable( kv.first, kv.second );
