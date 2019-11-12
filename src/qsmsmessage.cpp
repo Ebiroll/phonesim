@@ -17,7 +17,7 @@
 **
 ****************************************************************************/
 
-#include <stdlib.h>
+#include <cstdlib>
 
 #include <qsmsmessage.h>
 #include <qcbsmessage.h>

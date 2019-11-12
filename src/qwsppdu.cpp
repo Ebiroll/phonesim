@@ -24,7 +24,7 @@
 #include <qiodevice.h>
 #include <qbuffer.h>
 #include <netinet/in.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 // Reference: WAP-230-WSP
 //            Wireless Application Protocol

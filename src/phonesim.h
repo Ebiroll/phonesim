@@ -33,11 +33,11 @@
 #include <qpointer.h>
 #include <qsimcontrolevent.h>
 
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 #include <sys/types.h>
 #include <unistd.h>
-#include <signal.h>
+#include <csignal>
 #include <sys/time.h>
 #include <sys/wait.h>
 #include <sys/select.h>

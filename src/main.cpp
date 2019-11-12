@@ -22,7 +22,7 @@
 #include <qapplication.h>
 #include <qstring.h>
 #include <qdebug.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 static void usage()
 {
