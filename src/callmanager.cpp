@@ -33,11 +33,11 @@ CallManager::CallManager( QObject *parent )
 
     hangupTimer = new QTimer(this);
     hangupTimer->setSingleShot(true);
-    connect( hangupTimer, SIGNAL(timeout()), this, SLOT(hangupTimeout()) );
+    connect( hangupTimer, &QTimer::timeout, this, &CallManager::hangupTimeout );
 
     ringTimer = new QTimer(this);
     ringTimer->setSingleShot(true);
-    connect( ringTimer, SIGNAL(timeout()), this, SLOT(sendNextRing()) );
+    connect( ringTimer, &QTimer::timeout, this, &CallManager::sendNextRing );
 }
 
 CallManager::~CallManager()
@@ -92,19 +92,19 @@ bool CallManager::command( const QString& cmd )
         // Check for special dial-back numbers.
         if ( number == "199" ) {
             send( "NO CARRIER" );
-            QTimer::singleShot( 5000, this, SLOT(dialBack()) );
+            QTimer::singleShot( 5000, this, &CallManager::dialBack );
             return true;
         } else if ( number == "1993" ) {
             send( "NO CARRIER" );
-            QTimer::singleShot( 30000, this, SLOT(dialBack()) );
+            QTimer::singleShot( 30000, this, &CallManager::dialBack );
             return true;
         } else if ( number == "177" ) {
             send( "NO CARRIER" );
-            QTimer::singleShot( 2000, this, SLOT(dialBackWithHangup5()) );
+            QTimer::singleShot( 2000, this, &CallManager::dialBackWithHangup5 );
             return true;
         } else if ( number == "166" ) {
             send( "NO CARRIER" );
-            QTimer::singleShot( 1000, this, SLOT(dialBackWithHangup4()) );
+            QTimer::singleShot( 1000, this, &CallManager::dialBackWithHangup4 );
             return true;
         } else if ( number == "155" ) {
             send( "BUSY" );
@@ -156,11 +156,11 @@ bool CallManager::command( const QString& cmd )
 
         // Automatic accept of calls
         if ( number == "6789" ) {
-            QTimer::singleShot( 1000, this, SLOT(dialingToConnected()) );
+            QTimer::singleShot( 1000, this, &CallManager::dialingToConnected );
         } else if ( number.startsWith( "05123" ) ) {
-            QTimer::singleShot( 1000, this, SLOT(dialingToConnected()) );
+            QTimer::singleShot( 1000, this, &CallManager::dialingToConnected );
         } else if ( number.startsWith( "06123" ) ) {
-            QTimer::singleShot( 1000, this, SLOT(dialingToAlerting()) );
+            QTimer::singleShot( 1000, this, &CallManager::dialingToAlerting );
         }
 
     // Data call - phone number 696969
@@ -726,7 +726,7 @@ void CallManager::dialingToConnected()
         temp = temp.replace( "05123" , "" );
         int timeout = temp.toInt( &ok, 10 );
         timeout = ok ? timeout * 1000 : 10000;
-        QTimer::singleShot( timeout, this, SLOT(hangup()) );
+        QTimer::singleShot( timeout, this, &CallManager::hangup );
     }
 }
 
@@ -750,7 +750,7 @@ void CallManager::dialingToAlerting()
         temp = temp.replace( "06123" , "" );
         int timeout = temp.toInt( &ok, 10 );
         timeout = ok ? timeout * 1000 : 10000;
-        QTimer::singleShot( timeout, this, SLOT(dialingToConnected()) );
+        QTimer::singleShot( timeout, this, &CallManager::dialingToConnected );
     }
 }
 

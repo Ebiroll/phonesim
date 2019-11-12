@@ -300,6 +300,8 @@ public slots:
     // Set a variable to a new value.
     void setVariable( const QString& name, const QString& value );
 
+    void delaySetVariable();
+
     // Switch to a new simulator state.
     void switchTo(const QString& name);
 
@@ -320,7 +322,6 @@ private slots:
     void tryReadCommand();
     void destruct();
     void delayTimeout();
-    void delaySetVariable();
     void dialCheck( const QString& number, bool& ok );
 
 private:

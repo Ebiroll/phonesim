@@ -63,34 +63,34 @@ ControlWidget::ControlWidget(const QString &ruleFile, Control *parent)
 
     bus.registerObject("/", script, QDBusConnection::ExportAllSlots);
 
-    connect(ui->hsSignalQuality, SIGNAL(valueChanged(int)), this, SLOT(sendSQ()));
-    connect(ui->hsBatteryCharge, SIGNAL(valueChanged(int)), this, SLOT(sendBC()));
-    connect(ui->hsBatteryCharging, SIGNAL(stateChanged(int)), this, SLOT(chargingChanged(int)));
-    connect(ui->pbSelectOperator, SIGNAL(clicked()), this, SLOT(sendOPS()));
-    connect(ui->pbRegistration, SIGNAL(clicked()), this, SLOT(sendREG()));
-    connect(ui->pbSendCellBroadcast, SIGNAL(clicked()), this, SLOT(sendCBM()));
-    connect(ui->pbSendSMSMessage, SIGNAL(clicked()), this, SLOT(sendSMSMessage()));
-    connect(ui->pbFile, SIGNAL(clicked()), this, SLOT(selectFile()));
-    connect(ui->pbSendSMSDatagram, SIGNAL(clicked()), this, SLOT(sendSMSDatagram()));
-    connect(ui->pbIncomingCall, SIGNAL(clicked()), this, SLOT(sendCall()));
-    connect(ui->openSpecButton, SIGNAL(clicked()), this, SLOT(resetTranslator()));
-    connect(ui->atCheckBox, SIGNAL(clicked()), this, SLOT(atChanged()));
-    connect(ui->pbAddMessage, SIGNAL(clicked()), this, SLOT(addVoicemail()));
-    connect(ui->pbRemoveMessage, SIGNAL(clicked()), this, SLOT(delVoicemail()));
-    connect(ui->pbNotifyUDH, SIGNAL(clicked()), this, SLOT(sendVMNotify()));
-    connect(ui->pbNotifyUDHEnhanced, SIGNAL(clicked()), this, SLOT(sendEVMNotify()));
-    connect(ui->pbSendUSSD, SIGNAL(clicked()), this, SLOT(sendUSSD()));
-    connect(ui->pbCancelUSSD, SIGNAL(clicked()), this, SLOT(cancelUSSD()));
-    connect(ui->cbSimInserted, SIGNAL(clicked()), this, SLOT(simInsertRemove()));
-    connect(ui->pbStart, SIGNAL(clicked()), this, SLOT(simAppStart()));
-    connect(ui->pbAbort, SIGNAL(clicked()), this, SLOT(simAppAbort()));
-    connect(ui->pbReset, SIGNAL(clicked()), this, SLOT(modemSilentReset()));
-    connect(ui->pbSendGNSSData, SIGNAL(clicked()), this, SLOT(sendGNSSData()));
-    connect(ui->pbGNSSDefault, SIGNAL(clicked()), this, SLOT(setDefaultGNSSData()));
-    connect(ui->pbSendNotif, SIGNAL(clicked()), this, SLOT(sendCSSN()));
-    connect(ui->pbAlerting, SIGNAL(clicked()), this, SLOT(setStateAlerting()));
-    connect(ui->pbActive, SIGNAL(clicked()), this, SLOT(setStateConnected()));
-    connect(ui->pbHangup, SIGNAL(clicked()), this, SLOT(setStateHangup()));
+    connect(ui->hsSignalQuality, &QSlider::valueChanged, this, &ControlWidget::sendSQ);
+    connect(ui->hsBatteryCharge, &QSlider::valueChanged, this, &ControlWidget::sendBC);
+    connect(ui->hsBatteryCharging, &QCheckBox::stateChanged, this, &ControlWidget::chargingChanged);
+    connect(ui->pbSelectOperator, &QPushButton::clicked, this, &ControlWidget::sendOPS);
+    connect(ui->pbRegistration, &QPushButton::clicked, this, &ControlWidget::sendREG);
+    connect(ui->pbSendCellBroadcast, &QPushButton::clicked, this, &ControlWidget::sendCBM);
+    connect(ui->pbSendSMSMessage, &QPushButton::clicked, this, &ControlWidget::sendSMSMessage);
+    connect(ui->pbFile, &QPushButton::clicked, this, &ControlWidget::selectFile);
+    connect(ui->pbSendSMSDatagram, &QPushButton::clicked, this, &ControlWidget::sendSMSDatagram);
+    connect(ui->pbIncomingCall, &QPushButton::clicked, this, &ControlWidget::sendCall);
+    connect(ui->openSpecButton, &QPushButton::clicked, this, &ControlWidget::resetTranslator);
+    connect(ui->atCheckBox, &QCheckBox::clicked, this, &ControlWidget::atChanged);
+    connect(ui->pbAddMessage, &QPushButton::clicked, this, &ControlWidget::addVoicemail);
+    connect(ui->pbRemoveMessage, &QPushButton::clicked, this, &ControlWidget::delVoicemail);
+    connect(ui->pbNotifyUDH, &QPushButton::clicked, this, &ControlWidget::sendVMNotify);
+    connect(ui->pbNotifyUDHEnhanced, &QPushButton::clicked, this, &ControlWidget::sendEVMNotify);
+    connect(ui->pbSendUSSD, &QPushButton::clicked, this, &ControlWidget::sendUSSD);
+    connect(ui->pbCancelUSSD, &QPushButton::clicked, this, &ControlWidget::cancelUSSD);
+    connect(ui->cbSimInserted, &QCheckBox::clicked, this, &ControlWidget::simInsertRemove);
+    connect(ui->pbStart, &QPushButton::clicked, this, &ControlWidget::simAppStart);
+    connect(ui->pbAbort, &QPushButton::clicked, this, &ControlWidget::simAppAbort);
+    connect(ui->pbReset, &QPushButton::clicked, this, &ControlWidget::modemSilentReset);
+    connect(ui->pbSendGNSSData, &QPushButton::clicked, this, &ControlWidget::sendGNSSData);
+    connect(ui->pbGNSSDefault, &QPushButton::clicked, this, &ControlWidget::setDefaultGNSSData);
+    connect(ui->pbSendNotif, &QPushButton::clicked, this, &ControlWidget::sendCSSN);
+    connect(ui->pbAlerting, &QPushButton::clicked, this, &ControlWidget::setStateAlerting);
+    connect(ui->pbActive, &QPushButton::clicked, this, &ControlWidget::setStateConnected);
+    connect(ui->pbHangup, &QPushButton::clicked, this, &ControlWidget::setStateHangup);
 
     QStringList headers;
     headers << "Sender" << "Priority" << "Notification Status";
@@ -120,19 +120,14 @@ Control::Control(const QString& ruleFile, SimRules *sr, QObject *parent)
         : HardwareManipulator(sr, parent),
         widget(new ControlWidget(ruleFile, this))
 {
-    QList<QByteArray> proxySignals;
-    proxySignals
-        << SIGNAL(unsolicitedCommand(QString))
-        << SIGNAL(command(QString))
-        << SIGNAL(variableChanged(QString,QString))
-        << SIGNAL(switchTo(QString))
-        << SIGNAL(startIncomingCall(QString, QString, QString))
-        << SIGNAL(stateChangedToAlerting())
-        << SIGNAL(stateChangedToConnected())
-        << SIGNAL(stateChangedToHangup(int));
-
-    foreach (QByteArray sig, proxySignals)
-        connect(widget, sig, this, sig);
+    connect(widget, &ControlWidget::unsolicitedCommand, this, &Control::unsolicitedCommand);
+    connect(widget, &ControlWidget::command, this, &Control::command);
+    connect(widget, &ControlWidget::variableChanged, this, &Control::variableChanged);
+    connect(widget, &ControlWidget::switchTo, this, &Control::switchTo);
+    connect(widget, &ControlWidget::startIncomingCall, this, &Control::startIncomingCall);
+    connect(widget, &ControlWidget::stateChangedToAlerting, this, &Control::stateChangedToAlerting);
+    connect(widget, &ControlWidget::stateChangedToConnected, this, &Control::stateChangedToConnected);
+    connect(widget, &ControlWidget::stateChangedToHangup, this, &Control::stateChangedToHangup);
 }
 
 Control::~Control()

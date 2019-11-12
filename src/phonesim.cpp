@@ -31,6 +31,7 @@
 #include <qbytearray.h>
 #include <qregexp.h>
 #include <qdebug.h>
+#include <qglobal.h>
 
 #define PHONEBOOK_NLENGTH 32
 #define PHONEBOOK_TLENGTH 16
@@ -362,8 +363,8 @@ bool SimChat::command( const QString& cmd )
 
             timer->setSingleShot( true );
 
-            connect(timer, SIGNAL(timeout()), this->state()->rules(),
-                    SLOT(delaySetVariable()));
+            connect(timer, &QTimer::timeout, this->state()->rules(),
+                    &SimRules::delaySetVariable);
             timer->start( delay );
         } else
             state()->rules()->setVariable( variable, val );
@@ -464,7 +465,7 @@ SimUnsolicited::SimUnsolicited( SimState *state, SimXmlNode& e )
 
     timer = new QTimer( this );
     timer->setSingleShot( true );
-    connect( timer, SIGNAL(timeout()), this, SLOT(timeout()) );
+    connect( timer, &QTimer::timeout, this, &SimUnsolicited::timeout );
 }
 
 
@@ -527,35 +528,35 @@ SimRules::SimRules(qintptr fd, QObject *p,  const QString& filename, HardwareMan
         machine = hmf->create(this, nullptr);
 
     if (machine) {
-        connect(machine, SIGNAL(unsolicitedCommand(QString)),
-                this, SLOT(unsolicited(QString)));
-        connect(machine, SIGNAL(command(QString)),
-                this, SLOT(command(QString)));
-        connect(machine, SIGNAL(variableChanged(QString,QString)),
-                this, SLOT(setVariable(QString,QString)));
-        connect(machine, SIGNAL(switchTo(QString)),
-                this, SLOT(switchTo(QString)));
+        connect(machine, &HardwareManipulator::unsolicitedCommand,
+                this, &SimRules::unsolicited);
+        connect(machine, &HardwareManipulator::command,
+                this, &SimRules::command);
+        connect(machine, &HardwareManipulator::variableChanged,
+                this, &SimRules::setVariable);
+        connect(machine, &HardwareManipulator::switchTo,
+                this, &SimRules::switchTo);
     }
 
     _callManager = new CallManager(this);
-    connect( _callManager, SIGNAL(send(QString)),
-             this, SLOT(respond(QString)) );
-    connect( _callManager, SIGNAL(unsolicited(QString)),
-             this, SLOT(unsolicited(QString)) );
-    connect( _callManager, SIGNAL(dialCheck(QString,bool&)),
-             this, SLOT(dialCheck(QString,bool&)) );
+    connect( _callManager, &CallManager::send,
+             this, qOverload<const QString &>( &SimRules::respond ) );
+    connect( _callManager, &CallManager::unsolicited,
+             this, &SimRules::unsolicited );
+    connect( _callManager, &CallManager::dialCheck,
+             this, &SimRules::dialCheck );
 
     if ( machine ) {
-        connect( machine, SIGNAL(startIncomingCall(QString,QString,QString)),
-                 _callManager, SLOT(startIncomingCall(QString,QString,QString)) );
-        connect ( _callManager, SIGNAL( callStatesChanged( QList<CallInfo> * ) ),
-                  machine, SLOT( callManagement( QList<CallInfo> * ) ) );
-        connect ( machine, SIGNAL( stateChangedToAlerting() ), _callManager,
-                SLOT( dialingToAlerting() ) );
-        connect ( machine, SIGNAL( stateChangedToConnected() ), _callManager,
-                SLOT( dialingToConnected() ) );
-        connect ( machine, SIGNAL( stateChangedToHangup( int ) ), _callManager,
-                SLOT( hangupRemote( int ) ) );
+        connect( machine, &HardwareManipulator::startIncomingCall, _callManager,
+                 qOverload<const QString &, const QString &, const QString &>( &CallManager::startIncomingCall ) );
+        connect ( _callManager, &CallManager::callStatesChanged,
+                  machine, &HardwareManipulator::callManagement);
+        connect ( machine, &HardwareManipulator::stateChangedToAlerting, _callManager,
+                &CallManager::dialingToAlerting );
+        connect ( machine, &HardwareManipulator::stateChangedToConnected, _callManager,
+                &CallManager::dialingToConnected );
+        connect ( machine, &HardwareManipulator::stateChangedToHangup, _callManager,
+                &CallManager::hangupRemote );
     }
 
     connect(this,SIGNAL(readyRead()),

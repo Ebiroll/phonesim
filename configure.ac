@@ -25,8 +25,8 @@ AC_ARG_ENABLE(optimization, AC_HELP_STRING([--disable-optimization],
 PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Script Qt5DBus Qt5Widgets, dummy=yes,
 						AC_MSG_ERROR(Qt is required))
 
-# Needed for Qt 5.7
-CXXFLAGS="$CXXFLAGS --std=gnu++11"
+# Needed for qOverload
+CXXFLAGS="$CXXFLAGS --std=gnu++14"
 
 AC_SUBST(QT_CFLAGS)
 AC_SUBST(QT_LIBS)
