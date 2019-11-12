@@ -58,7 +58,7 @@ class SimFileSystem : public QObject
     Q_OBJECT
 public:
     SimFileSystem( SimRules *rules, SimXmlNode& e, enum file_system_type type = FILE_SYSTEM_TYPE_DEFAULT );
-    ~SimFileSystem();
+    ~SimFileSystem() override;
 
     // Execute an AT+CRSM command against the filesystem.
     void crsm( const QString& args );
@@ -98,7 +98,7 @@ class SimFileItem : public QObject
 public:
     SimFileItem( const QString& fileid, SimFileItem *parentDir,
                  int access = 0, enum file_type type = FILE_TYPE_INVALID);
-    ~SimFileItem();
+    ~SimFileItem() override;
 
     QString fileid() const { return _fileid; }
     SimFileItem *parentDir() const { return _parentDir; }

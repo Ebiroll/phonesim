@@ -164,9 +164,9 @@ public:
                 EncodingVersion
     };
 
-    virtual QWspField decode(QWspPduDecoder &);
-    virtual bool encode(QWspPduEncoder&, const QWspField&);
-    virtual quint8 codePage() const { return 1; }
+    QWspField decode(QWspPduDecoder &) override;
+    bool encode(QWspPduEncoder&, const QWspField&) override;
+    quint8 codePage() const override { return 1; }
 
 private:
     int fieldFromNumber(quint8 id);

@@ -44,7 +44,7 @@ class AidApplication : public QObject
     Q_OBJECT
 public:
     AidApplication( QObject *parent, SimXmlNode& n );
-    ~AidApplication();
+    ~AidApplication() override;
 
     QString getAid() { return aid; };
     QString getType() { return type; };
@@ -67,7 +67,7 @@ class AidAppWrapper : public QObject
     Q_OBJECT
 public:
     AidAppWrapper( SimRules *r, QList<AidApplication *> apps, SimAuth *auth = nullptr );
-    ~AidAppWrapper();
+    ~AidAppWrapper() override;
 
     bool command( const QString& cmd );
 

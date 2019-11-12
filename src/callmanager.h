@@ -52,7 +52,7 @@ class CallManager : public QObject
     Q_OBJECT
 public:
     CallManager( QObject *parent = nullptr );
-    ~CallManager();
+    ~CallManager() override;
 
     // Process an AT command.  Returns false if not a call-related command.
     bool command( const QString& cmd );

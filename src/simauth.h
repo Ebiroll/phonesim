@@ -34,7 +34,7 @@ class SimAuth : public QObject
     Q_OBJECT
 public:
     SimAuth( QObject *parent, SimXmlNode& n );
-    ~SimAuth();
+    ~SimAuth() override;
 
     void gsmAuthenticate( QString rand, QString &sres, QString &kc );
     enum UmtsStatus umtsAuthenticate( QString rand, QString autn,

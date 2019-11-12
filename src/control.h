@@ -119,7 +119,7 @@ signals:
     void stateChangedToHangup( int callId );
 
 protected:
-    void closeEvent(QCloseEvent *event);
+    void closeEvent(QCloseEvent *event) override;
 
 private:
     Ui_ControlBase *ui;
@@ -150,17 +150,17 @@ Q_OBJECT
 
 public:
     Control(const QString& ruleFile, SimRules *sr, QObject *parent=nullptr);
-    virtual ~Control();
+    ~Control() override;
 
 public slots:
-    void handleFromData( const QString& );
-    void handleToData( const QString& );
-    void setPhoneNumber( const QString& );
-    void handleNewApp();
-    void callManagement( QList<CallInfo> *info );
+    void handleFromData( const QString& ) override;
+    void handleToData( const QString& ) override;
+    void setPhoneNumber( const QString& ) override;
+    void handleNewApp() override;
+    void callManagement( QList<CallInfo> *info ) override;
 
 protected:
-    virtual void warning( const QString&, const QString& );
+    void warning( const QString&, const QString& ) override;
 
 private:
     ControlWidget *widget;
@@ -170,7 +170,7 @@ private:
 class ControlFactory : public HardwareManipulatorFactory
 {
 public:
-    inline virtual HardwareManipulator *create(SimRules *sr, QObject *parent)
+    inline HardwareManipulator *create(SimRules *sr, QObject *parent) override
         { return new Control(ruleFile(), sr, parent); }
 };
 

@@ -128,7 +128,7 @@ class SimItem : public QObject
     Q_OBJECT
 public:
     SimItem( SimState *state ) { _state = state; }
-    virtual ~SimItem() {}
+    ~SimItem() override {}
 
     // Get the state that contains this item.
     SimState *state() { return _state; }
@@ -153,9 +153,9 @@ class SimChat : public SimItem
     Q_OBJECT
 public:
     SimChat( SimState *state, SimXmlNode& e );
-    ~SimChat() {}
+    ~SimChat() override {}
 
-    virtual bool command( const QString& cmd );
+    bool command( const QString& cmd ) override;
 
 private:
     QString _command;
@@ -180,10 +180,10 @@ class SimUnsolicited : public SimItem
     Q_OBJECT
 public:
     SimUnsolicited( SimState *state, SimXmlNode& e );
-    ~SimUnsolicited() {}
+    ~SimUnsolicited() override {}
 
-    virtual void enter();
-    virtual void leave();
+    void enter() override;
+    void leave() override;
 
 private:
     QString response;
@@ -204,7 +204,7 @@ class SimPhoneBook : public QObject
     Q_OBJECT
 public:
     SimPhoneBook( int size, QObject *parent );
-    ~SimPhoneBook();
+    ~SimPhoneBook() override;
 
     int size() const { return numbers.size(); }
     int used() const;
@@ -248,7 +248,7 @@ class SimRules : public QTcpSocket
     Q_OBJECT
 public:
     SimRules(qintptr fd, QObject *parent, const QString& filename, HardwareManipulatorFactory *hmf );
-    ~SimRules() {}
+    ~SimRules() override {}
 
     // get the variable value for.
     QString variable(const QString &name);

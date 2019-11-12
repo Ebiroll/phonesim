@@ -33,7 +33,7 @@ class SimApplication : public QObject
     Q_OBJECT
 public:
     SimApplication( SimRules *rules, QObject *parent = nullptr );
-    ~SimApplication();
+    ~SimApplication() override;
 
     virtual bool envelope( const QSimEnvelope& env );
     virtual bool response( const QSimTerminalResponse& resp );
@@ -68,15 +68,15 @@ class DemoSimApplication : public SimApplication
     Q_OBJECT
 public:
     DemoSimApplication( SimRules *rules, QObject *parent = nullptr );
-    ~DemoSimApplication();
+    ~DemoSimApplication() override;
 
-    const QString getName();
+    const QString getName() override;
 
-    bool envelope( const QSimEnvelope& env );
+    bool envelope( const QSimEnvelope& env ) override;
 
 protected slots:
-    void mainMenu();
-    void mainMenuSelection( int id );
+    void mainMenu() override;
+    void mainMenuSelection( int id ) override;
     void sendSportsMenu();
     void sportsMenu( const QSimTerminalResponse& resp );
     void sendCallsMenu();
@@ -149,13 +149,13 @@ class ConformanceSimApplication : public SimApplication
     Q_OBJECT
 public:
     ConformanceSimApplication( SimRules *rules, QObject *parent = nullptr );
-    ~ConformanceSimApplication();
+    ~ConformanceSimApplication() override;
 
-    const QString getName();
+    const QString getName() override;
 
 protected slots:
-    void mainMenu();
-    void mainMenuSelection( int id );
+    void mainMenu() override;
+    void mainMenuSelection( int id ) override;
     void sendDisplayTextMenu();
     void DisplayTextMenu( const QSimTerminalResponse& resp );
     void DisplayTextNormalMenu( const QSimTerminalResponse& resp );

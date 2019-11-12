@@ -27,10 +27,10 @@ class QGsmCodec : public QTextCodec
 {
 public:
     explicit QGsmCodec( bool noLoss=false );
-    ~QGsmCodec();
+    ~QGsmCodec() override;
 
-    QByteArray name() const;
-    int mibEnum() const;
+    QByteArray name() const override;
+    int mibEnum() const override;
 
     static char singleFromUnicode(QChar ch);
     static QChar singleToUnicode(char ch);
@@ -39,8 +39,8 @@ public:
     static QChar twoByteToUnicode(unsigned short ch);
 
 protected:
-    QString convertToUnicode(const char *in, int length, ConverterState *state) const;
-    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const;
+    QString convertToUnicode(const char *in, int length, ConverterState *state) const override;
+    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const override;
 
 private:
     bool noLoss;

@@ -325,14 +325,14 @@ class QGsmHexCodec : public QTextCodec
 {
 public:
     QGsmHexCodec();
-    ~QGsmHexCodec();
+    ~QGsmHexCodec() override;
 
-    QByteArray name() const;
-    int mibEnum() const;
+    QByteArray name() const override;
+    int mibEnum() const override;
 
 protected:
-    QString convertToUnicode(const char *in, int length, ConverterState *state) const;
-    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const;
+    QString convertToUnicode(const char *in, int length, ConverterState *state) const override;
+    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const override;
 };
 
 QGsmHexCodec::QGsmHexCodec()
@@ -411,14 +411,14 @@ class QUcs2HexCodec : public QTextCodec
 {
 public:
     QUcs2HexCodec();
-    ~QUcs2HexCodec();
+    ~QUcs2HexCodec() override;
 
-    QByteArray name() const;
-    int mibEnum() const;
+    QByteArray name() const override;
+    int mibEnum() const override;
 
 protected:
-    QString convertToUnicode(const char *in, int length, ConverterState *state) const;
-    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const;
+    QString convertToUnicode(const char *in, int length, ConverterState *state) const override;
+    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const override;
 };
 
 QUcs2HexCodec::QUcs2HexCodec()
@@ -484,15 +484,15 @@ class QCodePage437Codec : public QTextCodec
 {
 public:
     QCodePage437Codec();
-    ~QCodePage437Codec();
+    ~QCodePage437Codec() override;
 
-    QByteArray name() const;
-    QList<QByteArray> aliases() const;
-    int mibEnum() const;
+    QByteArray name() const override;
+    QList<QByteArray> aliases() const override;
+    int mibEnum() const override;
 
 protected:
-    QString convertToUnicode(const char *in, int length, ConverterState *state) const;
-    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const;
+    QString convertToUnicode(const char *in, int length, ConverterState *state) const override;
+    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const override;
 };
 
 // Convert IBM437 character codes 0x00 - 0xFF into Unicode.
@@ -685,15 +685,15 @@ class QCodePage850Codec : public QTextCodec
 {
 public:
     QCodePage850Codec();
-    ~QCodePage850Codec();
+    ~QCodePage850Codec() override;
 
-    QByteArray name() const;
-    QList<QByteArray> aliases() const;
-    int mibEnum() const;
+    QByteArray name() const override;
+    QList<QByteArray> aliases() const override;
+    int mibEnum() const override;
 
 protected:
-    QString convertToUnicode(const char *in, int length, ConverterState *state) const;
-    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const;
+    QString convertToUnicode(const char *in, int length, ConverterState *state) const override;
+    QByteArray convertFromUnicode(const QChar *in, int length, ConverterState *state) const override;
 };
 
 // Convert IBM850 character codes 0x00 - 0xFF into Unicode.

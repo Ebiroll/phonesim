@@ -129,7 +129,7 @@ class QWspPduDecoder : public QObject
     Q_OBJECT
 public:
     explicit QWspPduDecoder(QIODevice *);
-    ~QWspPduDecoder();
+    ~QWspPduDecoder() override;
 
     quint8 peekOctet();
     quint8 decodeOctet();
@@ -184,7 +184,7 @@ class QWspPduEncoder : public QObject
     Q_OBJECT
 public:
     explicit QWspPduEncoder(QIODevice *);
-    ~QWspPduEncoder();
+    ~QWspPduEncoder() override;
 
     void encodeOctet(quint8);
     void encodeUInt8(quint8);
