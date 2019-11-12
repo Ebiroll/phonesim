@@ -2227,7 +2227,7 @@ void DemoSimApplication::timersCmdResp( const QSimTerminalResponse& resp )
     if ( resp.command().qualifier() == 2 ) {
         if ( resp.result() == QSimTerminalResponse::Success ) {
             QString status;
-            status.sprintf( "Timer %i expires in %i:%02i:%02i.\n",
+            status.asprintf( "Timer %i expires in %i:%02i:%02i.\n",
                     resp.timerId(), resp.duration() / 3600000,
                     (resp.duration() / 60000) % 60,
                     (resp.duration() / 1000) % 60 );

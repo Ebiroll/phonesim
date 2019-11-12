@@ -292,7 +292,7 @@ static QString secsToUTC(int seconds)
 
     int h = seconds / 3600;
     int m = ( abs(seconds) - abs(h * 3600) ) / 60;
-    str.sprintf("%+.2d%.2d", h, m );
+    str.asprintf("%+.2d%.2d", h, m );
 
     return str;
 }
@@ -413,7 +413,7 @@ QString QWspDateTime::dateString(QDateTime d)
     QByteArray dayName = date.shortDayName(date.dayOfWeek()).toUtf8();
     QByteArray monthName = date.shortMonthName(date.month()).toUtf8();
     QByteArray utcOffs = secsToUTC(timeZoneDiff()).toUtf8();
-    str.sprintf("%s, %.2d %s %d %.2d:%.2d:%.2d %s",
+    str.asprintf("%s, %.2d %s %d %.2d:%.2d:%.2d %s",
             dayName.constData(),
             date.day(),
             monthName.constData(),
