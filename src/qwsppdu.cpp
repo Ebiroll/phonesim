@@ -18,13 +18,15 @@
 ****************************************************************************/
 
 #include <qwsppdu.h>
+
+#include <cstdlib>
+#include <netinet/in.h>
+#include <qbuffer.h>
+#include <qdatetime.h>
+#include <qlocale.h>
+#include <qiodevice.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
-#include <qdatetime.h>
-#include <qiodevice.h>
-#include <qbuffer.h>
-#include <netinet/in.h>
-#include <cstdlib>
 
 // Reference: WAP-230-WSP
 //            Wireless Application Protocol
@@ -409,9 +411,10 @@ QString QWspDateTime::dateString(QDateTime d)
 {
     QDate date = d.date();
     QTime time = d.time();
+    QLocale locale;
     QString str;
-    QByteArray dayName = date.shortDayName(date.dayOfWeek()).toUtf8();
-    QByteArray monthName = date.shortMonthName(date.month()).toUtf8();
+    QByteArray dayName = locale.dayName(date.dayOfWeek(), QLocale::ShortFormat).toUtf8();
+    QByteArray monthName = locale.monthName(date.month(), QLocale::ShortFormat).toUtf8();
     QByteArray utcOffs = secsToUTC(timeZoneDiff()).toUtf8();
     str.asprintf("%s, %.2d %s %d %.2d:%.2d:%.2d %s",
             dayName.constData(),
@@ -434,7 +437,7 @@ QString QWspDateTime::dateString(QDateTime d)
 QDateTime QWspDateTime::fromGmtTime_t(quint32 t)
 {
     QDateTime dt;
-    dt.setTime_t(t + timeZoneDiff());
+    dt.setSecsSinceEpoch(t + timeZoneDiff());
     return dt;
 }
 
