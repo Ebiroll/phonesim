@@ -17,8 +17,8 @@
 **
 ****************************************************************************/
 
-#include <qcbsmessage.h>
-#include <qatutils.h>
+#include "qcbsmessage.h"
+#include "qatutils.h"
 #include "qsmsmessage_p.h"
 #ifdef Q_WS_QWS
 #include <qtopialog.h>

@@ -17,8 +17,8 @@
 **
 ****************************************************************************/
 
-#include <qsimterminalresponse.h>
-#include <qsmsmessage.h>
+#include "qsimterminalresponse.h"
+#include "qsmsmessage.h"
 
 /*!
     \class QSimTerminalResponse

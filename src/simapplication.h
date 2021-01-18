@@ -21,10 +21,10 @@
 #define SIMAPPLICATION_H
 
 #include "phonesim.h"
-#include <qsimcommand.h>
-#include <qsimterminalresponse.h>
-#include <qsimenvelope.h>
-#include <qsimcontrolevent.h>
+#include "qsimcommand.h"
+#include "qsimterminalresponse.h"
+#include "qsimenvelope.h"
+#include "qsimcontrolevent.h"
 
 class SimApplicationPrivate;
 

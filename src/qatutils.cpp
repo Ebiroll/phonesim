@@ -17,9 +17,9 @@
 **
 ****************************************************************************/
 
-#include <qatutils.h>
-#include <qatresultparser.h>
-#include <qgsmcodec.h>
+#include "qatutils.h"
+#include "qatresultparser.h"
+#include "qgsmcodec.h"
 #include <qtextcodec.h>
 
 /*!

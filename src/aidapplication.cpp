@@ -2,8 +2,8 @@
 #include "simfilesystem.h"
 #include "simauth.h"
 
-#include <qatutils.h>
-#include <qsimcontrolevent.h>
+#include "qatutils.h"
+#include "qsimcontrolevent.h"
 
 AidApplication::AidApplication( QObject *parent, SimXmlNode& n )
     : QObject( parent )

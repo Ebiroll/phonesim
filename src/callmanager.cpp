@@ -18,8 +18,8 @@
 ****************************************************************************/
 
 #include "callmanager.h"
-#include <qatutils.h>
-#include <qsimcontrolevent.h>
+#include "qatutils.h"
+#include "qsimcontrolevent.h"
 
 CallManager::CallManager( QObject *parent )
     : QObject( parent )

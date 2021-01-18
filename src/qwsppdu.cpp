@@ -17,7 +17,7 @@
 **
 ****************************************************************************/
 
-#include <qwsppdu.h>
+#include "qwsppdu.h"
 
 #include <cstdlib>
 #include <netinet/in.h>

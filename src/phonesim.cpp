@@ -25,7 +25,7 @@
 #include "callmanager.h"
 #include "simauth.h"
 #include "aidapplication.h"
-#include <qatutils.h>
+#include "qatutils.h"
 
 #include <qstring.h>
 #include <qbytearray.h>

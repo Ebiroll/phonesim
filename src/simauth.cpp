@@ -16,8 +16,8 @@
 ****************************************************************************/
 
 #include "simauth.h"
-#include <qatutils.h>
-#include <qsimcontrolevent.h>
+#include "qatutils.h"
+#include "qsimcontrolevent.h"
 
 extern "C" {
 #include "comp128.h"

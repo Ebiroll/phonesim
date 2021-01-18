@@ -17,8 +17,8 @@
 **
 ****************************************************************************/
 
-#include <qsimcontrolevent.h>
-#include <qsimcommand.h>
+#include "qsimcontrolevent.h"
+#include "qsimcommand.h"
 
 /*!
     \class QSimControlEvent

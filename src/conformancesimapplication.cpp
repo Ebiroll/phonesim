@@ -17,7 +17,7 @@
 ****************************************************************************/
 
 #include "simapplication.h"
-#include <qatutils.h>
+#include "qatutils.h"
 #include <qdebug.h>
 #include <QTextCodec>
 #include "qsmsmessage.h"

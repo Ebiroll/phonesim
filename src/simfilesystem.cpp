@@ -18,7 +18,7 @@
 ****************************************************************************/
 
 #include "simfilesystem.h"
-#include <qatutils.h>
+#include "qatutils.h"
 #include <qdebug.h>
 
 // Known files, their parent directories, and names.

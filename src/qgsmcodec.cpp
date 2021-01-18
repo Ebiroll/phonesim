@@ -17,7 +17,7 @@
 **
 ****************************************************************************/
 
-#include <qgsmcodec.h>
+#include "qgsmcodec.h"
 
 const unsigned short GUC = 0x10;     // GSM Undefined character
 

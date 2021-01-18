@@ -17,9 +17,9 @@
 **
 ****************************************************************************/
 
-#include <qatresultparser.h>
-#include <qatresult.h>
-#include <qatutils.h>
+#include "qatresultparser.h"
+#include "qatresult.h"
+#include "qatutils.h"
 
 /*!
     \class QAtResultParser

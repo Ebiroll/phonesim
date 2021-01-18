@@ -19,11 +19,11 @@
 
 #include <cstdlib>
 
-#include <qsmsmessage.h>
-#include <qcbsmessage.h>
+#include "qsmsmessage.h"
+#include "qcbsmessage.h"
 #include "qsmsmessage_p.h"
-#include <qatutils.h>
-#include <qgsmcodec.h>
+#include "qatutils.h"
+#include "qgsmcodec.h"
 #ifdef Q_WS_QWS
 #include <qtopialog.h>
 #else

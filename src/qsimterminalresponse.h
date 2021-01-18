@@ -19,7 +19,7 @@
 #ifndef QSIMTERMINALRESPONSE_H
 #define QSIMTERMINALRESPONSE_H
 
-#include <qsimcommand.h>
+#include "qsimcommand.h"
 
 class QSimTerminalResponsePrivate;
 

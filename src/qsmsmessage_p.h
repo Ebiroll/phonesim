@@ -31,8 +31,8 @@
 // We mean it.
 //
 
-#include <qsmsmessage.h>
-#include <qcbsmessage.h>
+#include "qsmsmessage.h"
+#include "qcbsmessage.h"
 
 // Values are their bit reprensentation (defined in GSM-03.40 Section 9)
 // bits 6 5 4 ( shl 4 )

@@ -31,7 +31,6 @@
 #include <qmap.h>
 #include <qtimer.h>
 #include <qpointer.h>
-#include <qsimcontrolevent.h>
 
 #include <cstring>
 #include <cstdlib>
@@ -45,6 +44,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
+#include "qsimcontrolevent.h"
 
 class SimState;
 class SimItem;

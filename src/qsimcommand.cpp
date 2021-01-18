@@ -17,10 +17,10 @@
 **
 ****************************************************************************/
 
-#include <qsimcommand.h>
-#include <qatutils.h>
-#include <qsmsmessage.h>
-#include <qgsmcodec.h>
+#include "qsimcommand.h"
+#include "qatutils.h"
+#include "qsmsmessage.h"
+#include "qgsmcodec.h"
 #include <qvarlengtharray.h>
 
 static QString textToHtml(const QString& text, const QByteArray& attrs);

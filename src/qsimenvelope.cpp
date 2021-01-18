@@ -17,7 +17,7 @@
 **
 ****************************************************************************/
 
-#include <qsimenvelope.h>
+#include "qsimenvelope.h"
 
 /*!
     \class QSimEnvelope

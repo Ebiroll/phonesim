@@ -19,7 +19,7 @@
 #ifndef QSIMENVELOPE_H
 #define QSIMENVELOPE_H
 
-#include <qsimcommand.h>
+#include "qsimcommand.h"
 
 class QSimEnvelopePrivate;
 

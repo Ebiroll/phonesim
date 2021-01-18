@@ -17,8 +17,9 @@
 **
 ****************************************************************************/
 
-#include <server.h>
+#include "server.h"
 #include "control.h"
+
 #include <qapplication.h>
 #include <qstring.h>
 #include <qdebug.h>

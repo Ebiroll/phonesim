@@ -17,7 +17,7 @@
 **
 ****************************************************************************/
 
-#include <qatresult.h>
+#include "qatresult.h"
 
 /*!
     \class QAtResult

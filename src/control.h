@@ -20,12 +20,12 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
-#include <hardwaremanipulator.h>
 #include <QtDBus/QtDBus>
 #include <QJSEngine>
 #include "ui_controlbase.h"
 #include "attranslator.h"
 #include "callmanager.h"
+#include "hardwaremanipulator.h"
 
 class Control;
 
