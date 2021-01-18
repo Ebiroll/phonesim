@@ -448,7 +448,11 @@ QDateTime QWspDateTime::fromGmtTime_t(quint32 t)
 */
 quint32 QWspDateTime::toTime_t(const QDateTime &dt)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QDateTime st(QDate(1970, 1, 1));
+#else
+    QDateTime st = QDate(1970, 1, 1).startOfDay();
+#endif
     return st.secsTo(dt) - timeZoneDiff();
 }
 
@@ -459,7 +463,11 @@ quint32 QWspDateTime::toTime_t(const QDateTime &dt)
 */
 quint32 QWspDateTime::toGmtTime_t(const QDateTime &dt)
 {
+#if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
     QDateTime st(QDate(1970, 1, 1));
+#else
+    QDateTime st = QDate(1970, 1, 1).startOfDay();
+#endif
     return st.secsTo(dt) - 2*timeZoneDiff();
 }
 
