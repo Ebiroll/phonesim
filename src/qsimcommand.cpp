@@ -3626,7 +3626,7 @@ QByteArray QSimCommand::toPdu( QSimCommand::ToPduOptions options ) const
             if ( !language().isEmpty() && language().length() == 2 ) {
                 data += (char)0xAD;
                 data += (char)0x02;
-                data += language();
+                data += language().toUtf8();
             }
         }
         break;
