@@ -26,9 +26,8 @@ AC_ARG_ENABLE(optimization, AS_HELP_STRING([--disable-optimization],
 	fi
 ])
 
-PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Qml Qt5DBus
-					[Qt5Widgets >= 5.10], dummy=yes,
-				AC_MSG_ERROR(Qt5 is required))
+PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Qml Qt5DBus [Qt5Widgets >= 5.10],
+				dummy=yes, AC_MSG_ERROR(Qt5 is required))
 
 # Needed for qOverload
 CXXFLAGS="$CXXFLAGS --std=gnu++14"
