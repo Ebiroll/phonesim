@@ -67,7 +67,7 @@ QT_V_MOC_  = $(QT_V_MOC_$(AM_DEFAULT_VERBOSITY))
 QT_V_MOC_0 = @echo "  MOC     " $@;
 
 src/moc_%.cpp: src/%.h
-	$(MKDIR_P) src
+	@$(MKDIR_P) src
 	$(QT_V_MOC)$(MOC) $< -o $@
 
 QT_V_UIC   = $(QT_V_UIC_$(V))
@@ -75,5 +75,5 @@ QT_V_UIC_  = $(QT_V_UIC_$(AM_DEFAULT_VERBOSITY))
 QT_V_UIC_0 = @echo "  UIC     " $@;
 
 src/ui_%.h: src/%.ui
-	$(MKDIR_P) src
+	@$(MKDIR_P) src
 	$(QT_V_UIC)$(UIC) $< -o $@
