@@ -1,6 +1,8 @@
 
 AM_MAKEFLAGS = --no-print-directory
 
+ACLOCAL_AMFLAGS = -I build-aux
+
 bin_PROGRAMS = src/phonesim
 
 src_phonesim_SOURCES = src/main.cpp \
@@ -59,7 +61,6 @@ EXTRA_DIST = src/controlbase.ui src/GSMSpecification.xml
 MAINTAINERCLEANFILES = Makefile.in \
 	aclocal.m4 configure depcomp missing compile install-sh
 
-
 $(src_phonesim_OBJECTS): src/ui_controlbase.h
 
 QT_V_MOC   = $(QT_V_MOC_$(V))
@@ -77,3 +78,6 @@ QT_V_UIC_0 = @echo "  UIC     " $@;
 src/ui_%.h: src/%.ui
 	@$(MKDIR_P) src
 	$(QT_V_UIC)$(UIC) $< -o $@
+
+maintainer-clean-local:
+	-rm -rf build-aux

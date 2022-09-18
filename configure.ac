@@ -1,7 +1,11 @@
-AC_PREREQ(2.60)
-AC_INIT(phonesim, 1.21)
+AC_PREREQ([2.69])
+AC_INIT([phonesim], [1.21])
 
-AM_INIT_AUTOMAKE([foreign subdir-objects])
+AC_CONFIG_AUX_DIR(build-aux)
+AC_CONFIG_MACRO_DIR(build-aux)
+
+AM_INIT_AUTOMAKE([foreign subdir-objects color-tests silent-rules
+				tar-pax no-dist-gzip dist-xz])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
@@ -15,15 +19,16 @@ AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_INSTALL
 
-AC_ARG_ENABLE(optimization, AC_HELP_STRING([--disable-optimization],
+AC_ARG_ENABLE(optimization, AS_HELP_STRING([--disable-optimization],
 			[disable code optimization through compiler]), [
 	if (test "${enableval}" = "no"); then
 		CXXFLAGS="$CXXFLAGS -O0"
 	fi
 ])
 
-PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Qml Qt5DBus [Qt5Widgets >= 5.10], dummy=yes,
-						AC_MSG_ERROR(Qt is required))
+PKG_CHECK_MODULES(QT, Qt5Core Qt5Gui Qt5Xml Qt5Network Qt5Qml Qt5DBus
+					[Qt5Widgets >= 5.10], dummy=yes,
+				AC_MSG_ERROR(Qt5 is required))
 
 # Needed for qOverload
 CXXFLAGS="$CXXFLAGS --std=gnu++14"
@@ -46,4 +51,6 @@ UIC="$QMAKE_PATH_HOST_BINS/uic"
 AC_SUBST(UIC)
 AC_MSG_RESULT($UIC)
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES(Makefile)
+
+AC_OUTPUT

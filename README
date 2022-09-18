@@ -9,7 +9,7 @@ Compilation and installation
 
 In order to compile phone simulator you need following software packages:
 	- GCC compiler
-	- Qt libraries
+	- Qt5 libraries
 
 To configure run:
 	./configure --prefix=/usr
