@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([phonesim], [1.21])
+AC_INIT([phonesim], [2.0])
 
 AC_CONFIG_AUX_DIR(build-aux)
 AC_CONFIG_MACRO_DIR(build-aux)

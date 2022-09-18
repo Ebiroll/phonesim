@@ -1,3 +1,6 @@
+ver 2.0:
+	Update application to use Qt5.
+
 ver 1.21:
 	Add support for SimAuth class for GSM/UMTS authentication.
 	Add support for handling ISim file systems.
