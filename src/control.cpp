@@ -53,7 +53,7 @@ ControlWidget::ControlWidget(const QString &ruleFile, Control *parent)
 
     ui = new Ui_ControlBase;
     ui->setupUi(this);
-
+/*
     script = new Script(this, ui);
 
     if (!bus.registerService(SERVICE)) {
@@ -62,7 +62,7 @@ ControlWidget::ControlWidget(const QString &ruleFile, Control *parent)
     }
 
     bus.registerObject("/", script, QDBusConnection::ExportAllSlots);
-
+*/
     connect(ui->hsSignalQuality, &QSlider::valueChanged, this, &ControlWidget::sendSQ);
     connect(ui->hsBatteryCharge, &QSlider::valueChanged, this, &ControlWidget::sendBC);
     connect(ui->hsBatteryCharging, &QCheckBox::stateChanged, this, &ControlWidget::chargingChanged);

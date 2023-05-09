@@ -71,7 +71,7 @@ bool aes_encrypt(const uint8_t *key, size_t key_len, const uint8_t *in,
             .iov_len = len
     };
 
-    int sock = socket(AF_ALG, SOCK_SEQPACKET | SOCK_CLOEXEC, 0);
+    int sock = socket(AF_ALG, SOCK_SEQPACKET , 0); // | SOCK_CLOEXEC
     if (bind(sock, (struct sockaddr *)&sa, sizeof(sa))) {
         close(sock);
         return 0;
@@ -81,7 +81,7 @@ bool aes_encrypt(const uint8_t *key, size_t key_len, const uint8_t *in,
         return 0;
     }
 
-    int cipher = accept4(sock, NULL, 0, SOCK_CLOEXEC);
+    int cipher = accept(sock, NULL, 0);  // SOCK_CLOEXEC. accept4
     if (cipher == -1) {
         close(sock);
         return 0;
