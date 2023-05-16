@@ -1298,46 +1298,146 @@
 
 <chat>
     <command>AT+QDAI?</command>
-    <response>+QDAI: ${IO},${MODE},${FSYNC},${CLOCK},${FORMAT},${SAMPLE},${NUM_SLOTS},${SLOT_MAPPING}\n\nOK</response>
+    <response>AT+QDAI?\r+QDAI: ${IO},${MODE},${FSYNC},${CLOCK},${FORMAT},${SAMPLE},${NUM_SLOTS},${SLOT_MAPPING}\n\nOK</response>
 </chat>
 
 <set name="IMS_conf" value="1"/>
 <set name="VoLTE_cap" value="0"/>
 
 
+<chat>
+    <command>AT+QCCID"</command>
+    <response>+QCCID: 88462048007771884344. \r\nOK</response>
+</chat>
+
 
 <!-- Handle the AT+QCFG="volte_disable" command -->
 <chat>
     <command>AT+QCFG="volte_disable"</command>
-    <response>OK</response>
+    <response>AT+QCFG="volte_disable"\r+QCFG: "volte/disable",0\rOK</response>
 </chat>
 
 
 <!-- Handle the AT+QCFG="volte_disable",0 command -->
 <chat>
     <command>AT+QCFG="volte_disable",${VoLTE_cap}</command>
-    <response>OK</response>
+    <response>AT+QCFG: "volte/disable",${VoLTE_cap}\rOK</response>
 </chat>
 
-<!-- Handle the AT+QCFG="ims" command -->
+<!-- Handle the AT+QCFG="ims" command.  ${VoLTE_cap}   -->
 <chat>
     <command>AT+QCFG="ims"</command>
-    <response>QCFG="ims",${IMS_conf},${VoLTE_cap}\nOK</response>
+    <response>AT+QCFG="ims"\r+QCFG: "ims",1,1\rOK</response>
 </chat>
 
 <!-- Handle the AT+QCFG="ims",1 command -->
 <chat>
     <command>AT+QCFG="ims",${IMS_conf}</command>
-    <response>OK</response>
+    <response>AT+QCFG= "ims",1,1\r\nOK</response>
 </chat>
+
+<chat>
+    <command>AT+QAUDMOD=2</command>
+    <response>AT+QAUDMOD=2\r\nOK</response>
+</chat>
+<!-- AT+QAUDMOD=2 -->
+
+<set name="MIC1" value="25905"/>
+<set name="MIC2" value="20000"/>
+
+<chat>
+    <command>AT+QMIC=${MIC1},${MIC2}</command>
+    <response>AT+QMIC=${MIC1},${MIC2}\r\nOK</response>
+</chat>
+
+<!-- AT+QRXGAIN=25000 -->
+<set name="RXGAIN" value="25000"/>
+
+<chat>
+    <command>AT+QRXGAIN=${RXGAIN}</command>
+    <response>AT+QRXGAIN=${RXGAIN}\r\nOK</response>
+</chat>
+
+<!-- AT+QRXGAIN=? -->
+<chat>
+    <command>AT+QRXGAIN=?</command>
+    <response>AT+QRXGAIN=?\r\n+QRXGAIN: (25000,25905,20000)\r\nOK</response>
+</chat>
+
+<!-- AT+QSIDET=0 -->
+<set name="SIDET" value="0"/>
+<chat>
+    <command>AT+QSIDET=${SIDET}</command>
+    <response>AT+QSIDET=${SIDET}\r\nOK</response>
+</chat>
+
+<!-- AT^DSCI=0 -->
+<set name="DSCI" value="0"/>
+<chat>
+    <command>AT^DSCI=${DSCI}</command>
+    <response>AT^DSCI=${DSCI}\r\nOK</response>
+</chat>
+
+
+<!-- AT+QURCCFG=? -->
+<chat>
+    <command>AT+QURCCFG=?</command>
+    <response>AT+QURCCFG=?\r\n+QURCCFG: "urcport",("usbat","usbmodem","uart1","uart2")\r\nOK</response>
+</chat>
+
+<set name="RCFG" value="urcport"/>
+
+<!-- AT+QURCCFG=* TODO hardcoded-->
+<chat>
+    <command>AT+QURCCFG=*</command>
+    <set name="RCFG" value="*"/> 
+    <response>AT+QURCCFG=${RCFG}\r\nOK</response>  
+</chat>
+
+
+<!-- AT+QTONEDET=1 -->
+<chat>
+    <command>AT+QTONEDET=1</command>
+    <response>AT+QTONEDET=1\r\nOK</response>
+</chat>
+
+<!-- AT+QNWINFO  -->
+<chat>
+    <command>AT+QNWINFO</command>
+    <response>AT+QNWINFO\r\n+QNWINFO: "FDD LTE","24007","LTE BAND 3",1750\r\nOK</response>
+</chat>
+
+<set name="ICSGP" value="1,3"/>
+
+<!-- AT+QICSGP=1,3,"","","",0,0  -->
+<chat>
+    <command>AT+QICSGP=*</command>
+    <set name="ICSGP" value="*"/> 
+    <response>AT+QICSGP=${ICSGP}\r\nOK</response>  
+</chat>
+
+
+
+<!-- AT+QSIMSTAT? -->
+<chat>
+    <command>AT+QSIMSTAT?</command>
+    <response>AT+QSIMSTAT?\r\n+QSIMSTAT: 0,1\r\nOK</response>
+</chat>
+
+<!-- AT+QINISTAT -->
+<chat>
+    <command>AT+QINISTAT</command>
+    <response>AT+QINISTAT\r\n+QINISTAT: 7\r\nOK</response>
+</chat>
+
+
 
 <chat>
     <!-- Set facility lock (we just ignore this) -->
     <!-- AT+CLCK="SC",2,"${PINVALUE}"
 	return status of require pin at power on -->
     <!-- AT+CLCK="SC",*,"${PINVALUE}"
-	set require pin at startup to ${*}, (either 0, or 1,
-	     -->
+	set require pin at startup to ${*}, (either 0, or 1, -->
 </chat>
 
 <chat>
@@ -2573,7 +2673,7 @@
 <chat>
   <!-- QSIM detection (success) -->
   <command>AT+QSIMDET?</command>
-  <response>OK</response>
+  <response>+QSIMDET: 1,1\nOK</response>
 </chat>
 
 <chat>
